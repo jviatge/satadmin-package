@@ -194,7 +194,10 @@
              </div>
        {% endif %} --}}
  
-          <form method="post" id="loginFormHome" action="{{ route('admin.login.send') }}">
+          <form method="POST" id="loginFormHome" action="{{ route('admin.login.send') }}">
+
+            @csrf
+            
              <div class="form-group">
                 <label>Email</label>
                 <input type="email" value="" name="email" id="inputEmail" class="form-control" required autofocus>

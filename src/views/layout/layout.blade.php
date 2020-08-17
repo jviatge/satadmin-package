@@ -216,7 +216,15 @@
                 </div>
     
                 <ul class="list-unstyled components">
-                    <p>{{ Auth::user()->name }}</p>
+                    <div class="d-flex align-items-center my-2">
+                        <div>
+                            <p class="p-0 px-2 m-0">
+                                {{ Auth::user()->name }}
+                            </p>
+                        </div>
+                        <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
+                    </div>
+                
                     
                     <li>
                         @for ($i = 0; $i < count($supports); $i++)

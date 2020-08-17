@@ -37,11 +37,11 @@ class installCommand extends Command
 
         // 2) php artisan vendor:publish --provider="Jviatge\Satadmin\SatadminServiceProvider"
 
-        $homepage = file_get_contents(config_path('app.php'));
-        echo $homepage;
+        // $homepage = file_get_contents(config_path('app.php'));
+        // echo $homepage;
 
 
-        dd();
+        // dd();
         
 
 

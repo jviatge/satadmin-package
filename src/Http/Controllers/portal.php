@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class portal extends Controller
 {
-    /**
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
 
     /**
      * Show the application dashboard.
@@ -28,14 +20,29 @@ class portal extends Controller
         return view('satadmin::auth/login');
     }
 
+    /**
+     * Handle an authentication attempt.
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return Response
+     */
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Authentication passed...
+
             return redirect()->intended('admin');
+
         }
+    }
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/');
     }
 
 }
