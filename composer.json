@@ -15,5 +15,12 @@
         "psr-4": {
             "Jviatge\\Satadmin\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jviatge\\Satadmin\\SatadminServiceProvider"
+            ]
+        }
     }
 }
