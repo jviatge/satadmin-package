@@ -1,0 +1,19 @@
+{
+    "name": "jviatge/satadmin",
+    "description": "Backofice admin panel laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jviatge",
+            "email": "julien.viatge@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Jviatge\\Satadmin\\": "src/"
+        }
+    }
+}
