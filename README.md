@@ -1,10 +1,17 @@
-# SATADMIN BACKOFICE
+SATADMIN BACKOFICE
+========
 
-## INFO
+[![Issues](https://img.shields.io/github/issues/jviatge/satadmin-package)](https://github.com/jviatge/satadmin-package/issues)
+[![Stars](https://img.shields.io/github/stars/jviatge/satadmin-package)](https://github.com/jviatge/satadmin-package/star)
+
+
+## INFO ## 
+
+https://img.shields.io/github/issues/jviatge/satadmin-package
 
 Backofice admin panel laravel
 
-## INSTALL
+## INSTALL ## 
 ```php
 composer require jviatge/satadmin
 

@@ -39,4 +39,9 @@ class SatadminServiceProvider extends ServiceProvider{
     // php artisan config:clear && php artisan cache:clear && php artisan view:clear && php artisan route:clear
 
     // https://www.youtube.com/watch?v=sfR2kuxnuWU&list=PLpzy7FIRqpGBQ_aqz_hXDBch1aAA-lmgu&index=16
+
+
+    // git tag v1.0.0
+    // git add --all && git commit -m "****"
+    // git push --tag
 }
