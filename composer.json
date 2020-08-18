@@ -6,11 +6,13 @@
     "authors": [
         {
             "name": "jviatge",
-            "email": "julien.viatge@gmail.com"
+            "email": "contact@julien-viatge.fr"
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "laravel/ui": "^2.1"
+    },
     "autoload": {
         "psr-4": {
             "Jviatge\\Satadmin\\": "src/"

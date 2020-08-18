@@ -18,6 +18,38 @@ class installCommand extends Command
 
         $this->info('Install Satadmin ==(°^°)');
 
+
+
+        Artisan::call('vendor:publish', ['--provider' => 'Jviatge\Satadmin\SatadminServiceProvider']);
+        $this->info(Artisan::output());
+        
+
+
+        Storage::disk('public')->makeDirectory('files/images');
+        $this->info('Public files Directorie are created !');
+
+        Artisan::call('storage:link');
+        $this->info(Artisan::output());
+        
+        //install dir Satadmin
+        // try
+        // {
+        //     mkdir(app_path('Satadmin'), 0700);
+        //     $this->info(app_path('Satadmin'));
+    
+        //     //install support user
+        //     $Content = $this->user();
+        //     $file = app_path('Satadmin/Users.php');
+        //     file_put_contents($file, $Content, FILE_APPEND | LOCK_EX);
+        //     $this->info('Users.php are created !');
+
+        // } 
+        // catch (\Throwable $th)
+        // {
+        //     $this->info($th->getMessage());
+        // }
+       
+
         Artisan::call('config:clear');
         $this->info(Artisan::output());
        
@@ -39,28 +71,7 @@ class installCommand extends Command
 
         // $homepage = file_get_contents(config_path('app.php'));
         // echo $homepage;
-
-
-        // dd();
-        
-
-
-        Storage::disk('public')->makeDirectory('files/images');
-        $this->info('Public files Directorie are created !');
-
-        Artisan::call('storage:link');
-        $this->info(Artisan::output());
-        
-        //install dir Satadmin
-        mkdir(app_path('Satadmin'), 0700);
-        $this->info(app_path('Satadmin'));
-
-        //install support user
-        $Content = $this->user();
-        $file = app_path('Satadmin/Users.php');
-        file_put_contents($file, $Content, FILE_APPEND | LOCK_EX);
-        $this->info('Users.php are created !');
-       
+      
 
     }
 

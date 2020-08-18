@@ -5,24 +5,23 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
 
-            {{-- <button type="button" id="sidebarCollapse" class="btn btn-info">
-                <i class="fas fa-align-left"></i>
-                <span>Toggle Sidebar</span>
-            </button> --}}
+            <button type="button" id="sidebarCollapse" class="btn btn-group">
+                <i class="fas fa-align-left fa-2x"></i>
+            </button>
 
 
             <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-align-justify"></i>
             </button>
 
-            <h1>
+            <h1 class="ml-3 mb-0">
                 {{ $name ?? 'Unknow' }}
             </h1>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="nav navbar-nav ml-auto">
 
-                <a type="button" class="btn btn-success mr-3" href="{{ route('admin.new', [$slug]) }}">+ New {{ $name ?? '' }}</a> 
+                <a type="button" class="btn btn-success mr-3" href="{{ route('admin.new', [$slug]) }}"><i class="fas fa-plus"></i> New {{ $name ?? '' }}</a> 
                 
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -36,11 +35,6 @@
 @endsection
 
 @section('content')
-
- 
-      
-      
-
 
     <table class="table table-striped">
         <thead>
@@ -67,9 +61,9 @@
 
                 <td>
              
-                <a class="btn btn-secondary" href="{{ $ids[$loop->index]['id'] }}">Details</a> 
-                <a class="btn btn-info text-light" href="{{ $ids[$loop->index]['id'] }}">Edit</a>
-                <button type="button" class="btn btn-danger text-light" data-toggle="modal" data-target=".modalDelete{{ $ids[$loop->index]['id'] }}" >Delete</button>
+                <a class="btn btn-secondary" href="{{ $ids[$loop->index]['id'] }}"><i class="fas fa-info-circle"></i></a> 
+                <a class="btn btn-secondary text-light" href="{{ $ids[$loop->index]['id'] }}"><i class="far fa-edit"></i></a>
+                <button type="button" class="btn btn-secondary text-light" data-toggle="modal" data-target=".modalDelete{{ $ids[$loop->index]['id'] }}" ><i class="far fa-trash-alt"></i></button>
 
                 </td>
 

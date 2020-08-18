@@ -7,11 +7,10 @@ SATADMIN BACKOFICE
 
 ## INFO ## 
 
-https://img.shields.io/github/issues/jviatge/satadmin-package
-
 Backofice admin panel laravel
 
 ## INSTALL ## 
+
 ```php
 composer require jviatge/satadmin
 

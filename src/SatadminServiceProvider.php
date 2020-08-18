@@ -16,8 +16,11 @@ class SatadminServiceProvider extends ServiceProvider{
         $this->loadViewsFrom(__DIR__.'/views', 'satadmin');
         $this->mergeConfigFrom(__DIR__.'/config/satadmin.php', 'satadmin');
         $this->publishes([
-            __DIR__.'/config/satadmin.php' => config_path('satadmin.php'),
-            // __DIR__.'/../resources/views' => resource_path('views/vendor/blogpackage'),
+            __DIR__.'/config/satadmin.php'      => config_path('satadmin.php'),
+            __DIR__.'/css/satadmin.css'         => public_path('css/satadmin.css'),
+            __DIR__.'/js/fontawesome/all.js'    => public_path('js/fontawesome/all.js'),
+            __DIR__.'/tools/Users.php'          => app_path('Satadmin/Users.php'),
+            __DIR__.'/tools/unknown.png'        => public_path('storage/images/satadmin/unknown.png'),
         ]);
     }
     
@@ -33,15 +36,4 @@ class SatadminServiceProvider extends ServiceProvider{
         ]);
         
     }
-
-    // ->CONFIG INSTALL
-    // php artisan vendor:publish --provider="Jviatge\Satadmin\SatadminServiceProvider"
-    // php artisan config:clear && php artisan cache:clear && php artisan view:clear && php artisan route:clear
-
-    // https://www.youtube.com/watch?v=sfR2kuxnuWU&list=PLpzy7FIRqpGBQ_aqz_hXDBch1aAA-lmgu&index=16
-
-
-    // git tag v1.0.0
-    // git add --all && git commit -m "****"
-    // git push --tag
 }
