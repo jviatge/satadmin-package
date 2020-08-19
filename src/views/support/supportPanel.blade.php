@@ -61,7 +61,7 @@
 
                 <td>
              
-                <a class="btn btn-secondary" href="{{ $ids[$loop->index]['id'] }}"><i class="fas fa-info-circle"></i></a> 
+                <a class="btn btn-secondary" href="{{ route('admin.details', [$slug, $ids[$loop->index]['id']])  }}"><i class="fas fa-info-circle"></i></a> 
                 <a class="btn btn-secondary text-light" href="{{ $ids[$loop->index]['id'] }}"><i class="far fa-edit"></i></a>
                 <button type="button" class="btn btn-secondary text-light" data-toggle="modal" data-target=".modalDelete{{ $ids[$loop->index]['id'] }}" ><i class="far fa-trash-alt"></i></button>
 

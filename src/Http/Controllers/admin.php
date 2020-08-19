@@ -37,11 +37,11 @@ class admin extends Controller
     public function supportPanel( $support )
     {
 
-        $checkedClass = Layout::Support($support);
-        $myClass = new $checkedClass;
+        $checkedClass   = Layout::Support($support);
+        $myClass        = new $checkedClass;
 
-        $fieldsActiv = [];
-        $fieldsName = [];
+        $fieldsActiv    = [];
+        $fieldsName     = [];
 
         for ($i=0; $i < count($myClass->fields()); $i++) { 
             if($myClass->fields()[$i]->getName() != 'satadmin::password'){
@@ -56,9 +56,9 @@ class admin extends Controller
 
         try {
 
-            $model = $myClass->table()::orderBy($order, 'desc')->get();
+            $model      = $myClass->table()::orderBy($order, 'desc')->get();
             $listFields = $model->map->only($fieldsActiv);
-            $selectId = $model->map->only('id')->toArray();
+            $selectId   = $model->map->only('id')->toArray();
 
 
         } catch (\Throwable $th) {
@@ -125,13 +125,44 @@ class admin extends Controller
 
     }
 
+    public function supportDetails($support, $id)
+    {
+        $checkedClass   =   Layout::Support($support);
+        $myClass        =   new $checkedClass;
+
+        $fieldsActiv    =   [];
+        $fieldsName     =   [];
+
+        for ($i=0; $i < count($myClass->fields()); $i++) { 
+            if($myClass->fields()[$i]->getName() != 'satadmin::password'){
+
+                array_push($fieldsActiv, $myClass->fields()[$i]->getData()['field']);
+                array_push($fieldsName, $myClass->fields()[$i]->getData()['name']);
+
+            }
+        }
+
+        $model          =   $myClass->table()::where('id', $id)->get();
+        $listFields     =   $model->map->only($fieldsActiv)[0];
+        // dd($listFields);
+
+        // dd($listFields, $fieldsName);
 
 
+        return view('satadmin::support/supportDetails', [
 
+            'supports'      =>  Layout::listSupport(),
+            'labels'        =>  Layout::listLabel(),
+            'name'          =>  $myClass->label(),
+            'slug'          =>  $support,
 
+            'listFields'    =>  $listFields,
+            'fields'        =>  $fieldsName,
 
+        ]);
 
-
+      
+    }
 
     public function supportDelete($support, $id)
     { 
@@ -151,17 +182,11 @@ class admin extends Controller
 
         return redirect('admin/' . $support);
     }
+
+
+
+
     
-    public function userDetails($id)
-    {
-        $user = User::where('id', $id)->get()->first();
-
-        return view('satadmin::users/userDetails', [
-            'name' => $this->name,
-            'user' => $user
-        ]);
-    }
-
     public function userUpdate($id)
     { 
 

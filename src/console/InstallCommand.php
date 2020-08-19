@@ -27,6 +27,9 @@ class installCommand extends Command
         Storage::disk('public')->makeDirectory('files/images');
         $this->info('Public files Directorie are created !');
 
+        Artisan::call('ui bootstrap');
+        $this->info(Artisan::output());
+
         Artisan::call('storage:link');
         $this->info(Artisan::output());
         

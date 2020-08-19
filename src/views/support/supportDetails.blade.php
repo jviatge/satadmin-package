@@ -5,24 +5,24 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
 
-            {{-- <button type="button" id="sidebarCollapse" class="btn btn-info">
-                <i class="fas fa-align-left"></i>
-                <span>Toggle Sidebar</span>
-            </button> --}}
+            <button type="button" id="sidebarCollapse" class="btn btn-group">
+                <i class="fas fa-align-left fa-2x"></i>
+            </button>
 
 
             <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-align-justify"></i>
             </button>
 
-            <h1>
-                {{ $name ?? 'Unknow' }}
+            <h1 class="ml-3 mb-0">
+              Details {{ $name ?? 'Unknow' }} 
             </h1>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="nav navbar-nav ml-auto">
 
-                    <a type="button" class="btn btn-success mr-3" href="{{ route('admin.user.new')}}">+ New {{ $name ?? '' }}</a>
+                <a type="button" class="btn btn-success mr-3" href="{{ route('admin.new', [$slug]) }}"><i class="fas fa-plus"></i> New {{ $name ?? '' }}</a> 
+                <a class="btn btn-groupe mr-3" href="{{ route('admin', [$slug]) }}"><i class="fas fa-arrow-left fa-lg mr-2"></i><span>Back</span></a>
                 
                 </div>
             </div>
@@ -34,8 +34,6 @@
 @section('content')
 
 
-@if ($user)
-
 <table class="table">
     <thead>
       <tr>
@@ -44,33 +42,19 @@
       </tr>
     </thead>
     <tbody>
+      @foreach ($listFields as $listField)  
+
       <tr>
-        <th scope="row">ID</th>
-        <td>{{ $user->id }}</td>
+        <th scope="row">{{ $fields[$loop->index] }}</th>
+        <td>{{ $listField }}</td>
       </tr>
-      <tr>
-        <th scope="row">Name</th>
-        <td>{{ $user->name }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Email</th>
-        <td>{{ $user->email }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Created at</th>
-        <td>{{ $user->created_at }}</td>
-      </tr>
-      <tr>
-        <th scope="row">Updated at</th>
-        <td>{{ $user->updated_at }}</td>
-      </tr>
+  
+      @endforeach
     </tbody>
   </table>
 
     
-    
 
-@endif
 
 @endsection
 

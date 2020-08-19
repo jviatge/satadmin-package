@@ -23,6 +23,7 @@
                 <div class="nav navbar-nav ml-auto">
 
                     <a class="btn btn-success mr-3" href="{{ route('admin.user.new')}}">+ New {{ $name ?? '' }}</a>
+                    <a class="btn btn-groupe mr-3" href="{{ route('admin', [$slug]) }}"><i class="fas fa-arrow-left fa-lg mr-2"></i><span>Back</span></a>
                 
                 </div>
             </div>

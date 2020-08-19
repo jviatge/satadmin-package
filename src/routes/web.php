@@ -15,6 +15,7 @@ Route::group(['namespace' => 'Jviatge\Satadmin\Http\Controllers'], function () {
         Route::get('/admin/{support}/new', 'admin@supportNew')->name('admin.new');
         Route::post('/admin/{support}/add', 'admin@supportAdd')->name('admin.add');
         Route::get('/admin/{support}/delete/{id}', 'admin@supportDelete')->name('admin.delete');  
+        Route::get('/admin/{support}/details/{id}', 'admin@supportDetails')->name('admin.details');
 
         
     });
