@@ -24,5 +24,12 @@
                 "Jviatge\\Satadmin\\SatadminServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "composer require larvel/ui",
+            "php artisan ui bootstrap", 
+            "npm install && npm run dev"
+        ]
     }
 }

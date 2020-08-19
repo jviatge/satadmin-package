@@ -19,7 +19,6 @@ class installCommand extends Command
         $this->info('Install Satadmin ==(°^°)');
 
 
-
         Artisan::call('vendor:publish', ['--provider' => 'Jviatge\Satadmin\SatadminServiceProvider']);
         $this->info(Artisan::output());
         

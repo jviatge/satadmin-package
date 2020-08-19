@@ -49,9 +49,7 @@ class {$support}s
     }
 
 }";
-
-
-        Storage::disk('app')->put($support . 's.php', $Content);
+        Storage::disk('Satadmin')->put($support . 's.php', $Content);
         $this->info('Support are created !');
     }
 }

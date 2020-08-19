@@ -22,6 +22,11 @@ class SatadminServiceProvider extends ServiceProvider{
             __DIR__.'/tools/Users.php'          => app_path('Satadmin/Users.php'),
             __DIR__.'/tools/unknown.png'        => public_path('storage/images/satadmin/unknown.png'),
         ]);
+        
+        app()->config["filesystems.disks.Satadmin"] = [
+            'driver' => 'local',
+            'root' => app_path('Satadmin'),
+        ];
     }
     
     /**
