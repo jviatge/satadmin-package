@@ -22,13 +22,16 @@
                 <div class="nav navbar-nav ml-auto">
 
                 <a type="button" class="btn btn-success mr-3" href="{{ route('admin.new', [$slug]) }}"><i class="fas fa-plus"></i> New {{ $name ?? '' }}</a> 
-                <a class="btn btn-groupe mr-3" href="{{ route('admin', [$slug]) }}"><i class="fas fa-arrow-left fa-lg mr-2"></i><span>Back</span></a>
                 
                 </div>
             </div>
         </div>
     </nav>
-    
+
+    <div class="mb-4">
+      <a class="btn btn-groupe mr-3" href="{{ route('admin', [$slug]) }}"><i class="fas fa-arrow-left fa-lg mr-2"></i><span>Back</span></a>
+    </div>
+
 @endsection
 
 @section('content')
@@ -38,21 +41,20 @@
     <thead>
       <tr>
         <th scope="col">Column</th>
-        <th scope="col">Data</th>
+        <th scope="col">Value</th>
       </tr>
     </thead>
     <tbody>
-      @foreach ($listFields as $listField)  
+      @foreach ($fields as $Field)  
 
       <tr>
-        <th scope="row">{{ $fields[$loop->index] }}</th>
-        <td>{{ $listField }}</td>
+        <th scope="row">{{ $Field['label'] }}</th>
+        <td>{{ $Field['value'][0] }}</td>
       </tr>
   
       @endforeach
     </tbody>
   </table>
-
     
 
 

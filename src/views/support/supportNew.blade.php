@@ -21,12 +21,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="nav navbar-nav ml-auto">
 
-                <a class="btn btn-groupe mr-3" href="{{ route('admin', [$slug]) }}"><i class="fas fa-arrow-left fa-lg mr-2"></i><span>Back</span></a>
+                
             
             </div>
         </div>
     </div>
 </nav>
+
+<div class="mb-4">
+    <a class="btn btn-groupe mr-3" href="{{ route('admin', [$slug]) }}"><i class="fas fa-arrow-left fa-lg mr-2"></i><span>Back</span></a>
+</div>
     
 @endsection
 
@@ -34,7 +38,7 @@
 
     
 <div class="card-body">
-    <form action="{{ route('admin.add',[$slug]) }}" method="POST">
+    <form action="{{ route('admin.send.new',[$slug]) }}" method="POST">
 
         @csrf
         
@@ -43,8 +47,6 @@
             {{ $Field }}
 
         @endforeach
-
-        {{-- <input type="text" id="email" name="email"> --}}
 
 
         <div class="form-group row mb-0">

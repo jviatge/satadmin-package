@@ -1,13 +1,28 @@
-
-@if (collect(request()->segments())->last() == 'new')
+@if ($section == 'new')
 
     <div class="form-group row">
-    <label class="col-md-4 col-form-label text-md-right">{{ __( $name ) }}</label>
-
+    <label class="col-md-4 col-form-label text-md-right">{{ $label }}</label>
+       
         <div class="col-md-6">
-            <input name="{{ $field }}" type="text" class="form-control @error('{{ $field }}') is-invalid @enderror" required autofocus>
+            <input name="{{ $fieldName }}" type="text" class="form-control @error('{{ $fieldName }}') is-invalid @enderror" required autofocus">
     
-            @error('{{ $field }}')
+            @error('{{ $fieldName }}')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+
+@elseif ($section == 'update')
+
+    <div class="form-group row">
+    <label class="col-md-4 col-form-label text-md-right">{{ $label }}</label>
+       
+        <div class="col-md-6">
+            <input value="{{ $value }}" name="{{ $fieldName }}" type="text" class="form-control @error('{{ $fieldName }}') is-invalid @enderror" required autofocus">
+    
+            @error('{{ $fieldName }}')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -15,16 +30,5 @@
         </div>
     </div>
     
-
-@else
-
-    {{ $name }} 
-
 @endif
 
-{{-- {{ $field }} --}}
-
-
-{{-- {{ Request::segment(count(Request::segment)) }} --}}
-
-{{-- {{ collect(request()->segments())->last() }} --}}

@@ -2,12 +2,12 @@
 
 namespace Jviatge\Satadmin\fields;
 
-abstract class Text extends CheckSegment{
+abstract class Select extends CheckSegment{
 
     static function create(...$arguments)
     {
         $section = parent::section();
-        $class = new Option($arguments, 'text', $section);
+        $class = new Option($arguments, 'select', $section);
         return $class;
     }
 

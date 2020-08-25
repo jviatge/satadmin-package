@@ -19,14 +19,15 @@
             </h1>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="nav navbar-nav ml-auto">
+                <div class="nav navbar-nav ml-auto">    
 
-                <a type="button" class="btn btn-success mr-3" href="{{ route('admin.new', [$slug]) }}"><i class="fas fa-plus"></i> New {{ $name ?? '' }}</a> 
-                
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
+
+                    <a type="button" class="btn btn-success ml-3" href="{{ route('admin.new', [$slug]) }}"><i class="fas fa-plus"></i> New {{ $name ?? '' }}</a> 
+
                 </div>
             </div>
         </div>
@@ -37,72 +38,57 @@
 @section('content')
 
     <table class="table table-striped">
+        
+        @if ($fields != null)
+       
+        
         <thead>
-          <tr>
-            @foreach ( $fields as $field)
-            <th scope="col">{{ $field }}</th>
-            @endforeach
-            <th scope="col">Gestion</th>
-          </tr>
+            <tr>
+                @foreach ($fields as $Field)  
+                <th scope="col">{{ $Field['label'] }}</th>
+                @endforeach
+                <th scope="col">Gestion</th>
+            </tr>
         </thead>
         <tbody>
-
-            @foreach ($listFields as $listField)  
-
+            @for ($i = 0; $i < count($fields[0]['id']); $i++)
             <tr>
-            
-                
-                @foreach ($listField as $Field)  
-
-                <td>{{ $Field }}</td>
-
+                @foreach ($fields as $Field)  
+                    <td>{{ $Field['value'][$i] }}</td>
                 @endforeach
-
-
                 <td>
-             
-                <a class="btn btn-secondary" href="{{ route('admin.details', [$slug, $ids[$loop->index]['id']])  }}"><i class="fas fa-info-circle"></i></a> 
-                <a class="btn btn-secondary text-light" href="{{ $ids[$loop->index]['id'] }}"><i class="far fa-edit"></i></a>
-                <button type="button" class="btn btn-secondary text-light" data-toggle="modal" data-target=".modalDelete{{ $ids[$loop->index]['id'] }}" ><i class="far fa-trash-alt"></i></button>
-
+                    <a class="btn btn-secondary" href="{{ route('admin.details', [$slug, $fields[0]['id'][$i]]) }}"><i class="fas fa-info-circle"></i></a> 
+                    <a class="btn btn-secondary text-light" href="{{ route('admin.update', [$slug, $fields[0]['id'][$i]]) }}"><i class="far fa-edit"></i></a>
+                    <button type="button" class="btn btn-secondary text-light" data-toggle="modal" data-target=".modalDelete{{ $fields[0]['id'][$i] }}" ><i class="far fa-trash-alt"></i></button>
                 </td>
-
-               
             </tr>
-                    
 
-                <div class="modal fade modalDelete{{ $ids[$loop->index]['id'] }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-    
-                        <div class="modal-header">
-                            <h5 class="modal-title">Warning</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-    
-                            <div class="card-body">
-                                Are you sure drop ?
-                            </div>
-                            <div class="card-footer">
-                                <button  class="btn btn-secondary text-light" data-dismiss="modal">No</button>
-                           
-                                <a class="btn btn-danger text-light" href="{{ route('admin.delete', [$slug, $ids[$loop->index]['id']] )}}">Yes</a>
-                            </div>
+            <div class="modal fade modalDelete{{ $fields[0]['id'][$i] }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Warning</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+
+                        <div class="card-body">
+                            Are you sure drop ?
+                        </div>
+                        <div class="card-footer">
+                            <button  class="btn btn-secondary text-light" data-dismiss="modal">No</button>
+                    
+                            <a class="btn btn-danger text-light" href="{{ route('admin.delete', [$slug, $fields[0]['id'][$i]] )}}">Yes</a>
                         </div>
                     </div>
                 </div>
-
-          
-            @endforeach
+            </div>
+            @endfor
 
         </tbody>
-      </table>    
-
-     
-
-   
-
+        @endif
+    </table>
     
 @endsection

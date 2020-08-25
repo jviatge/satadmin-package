@@ -21,7 +21,7 @@ class Layout
             array_push($listTab, $r->support());
 
         }
-
+        // dd($listTab);
         return $listTab;
     }
 

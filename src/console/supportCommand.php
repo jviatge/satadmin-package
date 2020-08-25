@@ -21,16 +21,11 @@ class supportCommand extends Command
         $Content = "<?php 
 
 namespace App\Satadmin;
+use Jviatge\Satadmin\Support as Support;
 
-
-class {$support}s 
+class {$support}s extends Support
 {
     public static function label() 
-    {
-        return '{$bddName}';
-    }
-
-    public static function support() 
     {
         return '{$bddName}';
     }

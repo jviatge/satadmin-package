@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 use Jviatge\Satadmin\Ressources;
 use Jviatge\Satadmin\Layout;
-use Auth;
 
 class admin extends Controller
 {
@@ -36,38 +35,23 @@ class admin extends Controller
 
     public function supportPanel( $support )
     {
+        // BASE CLASS
+        $checkedClass   =   Layout::Support($support);
+        $myClass        =   new $checkedClass;
+      
 
-        $checkedClass   = Layout::Support($support);
-        $myClass        = new $checkedClass;
+        // DATA
+        $order          =   'created_at';
+        $model          =   $myClass->table()::orderBy($order, 'desc')->get();
 
-        $fieldsActiv    = [];
-        $fieldsName     = [];
+      
+        // OPTION
+        $tabJson = json_encode($myClass->fields());
+        $option = (array) json_decode($tabJson,true);
 
-        for ($i=0; $i < count($myClass->fields()); $i++) { 
-            if($myClass->fields()[$i]->getName() != 'satadmin::password'){
+        // CREATE VIEW
+        $fields = $this->createFields($option, $model);
 
-                array_push($fieldsActiv, $myClass->fields()[$i]->getData()['field']);
-                array_push($fieldsName, $myClass->fields()[$i]->getData()['name']);
-
-            }
-        }
-
-        $order  = 'created_at';
-
-        try {
-
-            $model      = $myClass->table()::orderBy($order, 'desc')->get();
-            $listFields = $model->map->only($fieldsActiv);
-            $selectId   = $model->map->only('id')->toArray();
-
-
-        } catch (\Throwable $th) {
-
-            $selectId = '';
-            $listFields = [];
-
-        }
-        
         return view('satadmin::support/supportPanel', [
 
             'supports'      =>  Layout::listSupport(),
@@ -75,37 +59,52 @@ class admin extends Controller
             'name'          =>  $myClass->label(),
             'slug'          =>  $support,
 
-            'listFields'    =>  $listFields,
-            'ids'           =>  $selectId,
-            'fields'        =>  $fieldsName,
-
+            'fields'        =>  $fields
+        
         ]);
     }
 
     public function supportNew( $support )
     {
-        $checkedClass = Layout::Support($support);
-        $myClass = new $checkedClass;
+        // BASE CLASS
+        $checkedClass   =   Layout::Support($support);
+        $myClass        =   new $checkedClass;
+      
+      
+        // OPTION
+        $tabJson = json_encode($myClass->fields());
+        $option = (array) json_decode($tabJson,true);
+
+        // CREATE VIEW
+        $fields = $this->createFields($option, $myClass);
+
 
         return view('satadmin::support/supportNew', [
 
             'supports'      =>  Layout::listSupport(),
             'labels'        =>  Layout::listLabel(),
             'name'          =>  $myClass->label(),
+
             'slug'          =>  $support,
-            'fields'        =>  $myClass->fields(),
+            'fields'        =>  $fields
 
         ]);
     }
 
-    public function supportAdd(Request $request, $support)
+    public function supportSendNew(Request $request, $support)
     { 
         $checkedClass = Layout::Support($support);
         $myClass = new $checkedClass;
 
-        $table   =   DB::getSchemaBuilder()->getColumnListing($support);
-        $myData  =   [];
-    
+        $table          =   DB::getSchemaBuilder()->getColumnListing($support);
+        $myData         =   [];
+
+        // HASH PASSWORD
+        if($request->hash){
+            $hash  =  $request->hash;
+            $request[$hash] = Hash::make($request[$hash]);
+        }     
+
         foreach($request->all() as $key => $value) {
             foreach ($table as $colunm) {
                 if($key == $colunm){
@@ -127,26 +126,23 @@ class admin extends Controller
 
     public function supportDetails($support, $id)
     {
+
+        // BASE CLASS
         $checkedClass   =   Layout::Support($support);
         $myClass        =   new $checkedClass;
+      
 
-        $fieldsActiv    =   [];
-        $fieldsName     =   [];
-
-        for ($i=0; $i < count($myClass->fields()); $i++) { 
-            if($myClass->fields()[$i]->getName() != 'satadmin::password'){
-
-                array_push($fieldsActiv, $myClass->fields()[$i]->getData()['field']);
-                array_push($fieldsName, $myClass->fields()[$i]->getData()['name']);
-
-            }
-        }
-
+        // DATA
         $model          =   $myClass->table()::where('id', $id)->get();
-        $listFields     =   $model->map->only($fieldsActiv)[0];
-        // dd($listFields);
 
-        // dd($listFields, $fieldsName);
+      
+        // OPTION
+        $tabJson = json_encode($myClass->fields());
+        $option = (array) json_decode($tabJson,true);
+
+        // CREATE VIEW
+        $fields = $this->createFields($option, $model);
+        // dd($fields);
 
 
         return view('satadmin::support/supportDetails', [
@@ -156,70 +152,195 @@ class admin extends Controller
             'name'          =>  $myClass->label(),
             'slug'          =>  $support,
 
-            'listFields'    =>  $listFields,
-            'fields'        =>  $fieldsName,
-
+            'fields'        =>  $fields
+        
         ]);
-
       
     }
 
     public function supportDelete($support, $id)
     { 
-      
-        
+
         DB::table($support)->where('id', $id)->delete();
 
-        
-        // $email = Auth::user()->email;
-        // $user = User::where('id', $id)->get()->first();
-
-        // if($user->email != $email){
-
-        //     $user->delete();
-
-        // }
-
         return redirect('admin/' . $support);
+        
     }
 
+    public function supportUpdate($support, $id)
+    {
+        // BASE CLASS
+        $checkedClass   =   Layout::Support($support);
+        $myClass        =   new $checkedClass;
+      
+        // DATA
+        $model          =   $myClass->table()::where('id', $id)->get();
+      
+        // OPTION
+        $tabJson = json_encode($myClass->fields());
+        $option = (array) json_decode($tabJson,true);
 
+        // CREATE VIEW
+        $fields = $this->createFields($option, $model);
 
+        return view('satadmin::support/supportUpdate', [
 
-    
-    public function userUpdate($id)
-    { 
+            'supports'      =>  Layout::listSupport(),
+            'labels'        =>  Layout::listLabel(),
+            'name'          =>  $myClass->label(),
+            'id'            =>  $id,
 
-        $user = User::where('id', $id)->get()->first();
-
-        // $user->name = 'Josex';
-        // $user->save();
-
-        return view('satadmin::users/userUpdate', [
-            'name' => $this->name,
-            'user' => $user
+            'slug'          =>  $support,
+            'fields'        =>  $fields
+        
         ]);
     }
 
-    public function userUpdateRequest(Request $request, $id)
+
+    public function supportSendUpdate(Request $request, $support, $id)
     { 
-        $name = request('name');
-        $email = request('email');
-        $password = request('password');
+        // BASE CLASS
+        $checkedClass   =   Layout::Support($support);
+        $myClass        =   new $checkedClass;
+    
+        $table          =   DB::getSchemaBuilder()->getColumnListing($support);
+        $myData         =   [];
 
-        $user = User::where('id', $id)->get()->first();
+        
+        if($request->hash){
+            // HASH PASSWORD
+            $hash  =  $request->hash;
+            if($request[$hash] != null){
+                $request[$hash] = Hash::make($request[$hash]);
+            } else {
+                unset($request[$hash]);
+            }
+        }   
+
+        foreach($request->all() as $key => $value) {
+            foreach ($table as $colunm) {
+                if($key == $colunm){
+                    if($value != null){
+                        $myData[$colunm] = $value;             
+                    }
+                }
+            }
+        } 
+
+        $myClass->table()::where('id', $id)->update($myData);
+       
+        return redirect('admin/' . $support);
+
+    }
+
+
+    function createFields ($option, $data)
+    {
+        $arrViews = [];
+
+        for ($i=0; $i < count($option); $i++) { 
+
+            $section        =   $option[$i]['section'];
+            $view           =   'satadmin::' . $option[$i]['type'];
+            $show           =   true;
             
-        $user->name = $name;
-        $user->email = $email;
+            //PANEL
+            if($section == 'panel')
+            {
+                // GET VALUE
+                $arrValues  =   $data
+                                ->map
+                                ->only($option[$i]['fieldName'])
+                                ->toArray();
+                $value      =   [];
+                foreach($arrValues as $arrValue)
+                {
+                    array_push($value, $arrValue[$option[$i]['fieldName']]); 
+                }
+       
+                
+                // GET ID
+                $arrIds     =   $data
+                                ->map
+                                ->only('id')
+                                ->toArray();
+                $id         =   [];
+                foreach($arrIds as $arrId)
+                {
+                    array_push($id, $arrId['id']);
+                }
 
-        if($password != null){
-            $user->password = Hash::make($password);
+                // DONT SHOW PASSWORD
+                ($option[$i]['type'] == 'password') ? $show = false : null;
+                
+            }
+            
+            //DETAILS
+            if($section == 'details')
+            {
+                
+                $arrValues  =   $data
+                                ->map
+                                ->only($option[$i]['fieldName'])
+                                ->toArray();
+                $value      =   [];
+                foreach($arrValues as $arrValue)
+                {
+                    array_push($value, $arrValue[$option[$i]['fieldName']]); 
+                }
+           
+                $id         =   $data
+                                ->map
+                                ->only('id')
+                                ->toArray()[0]['id'];
+
+                // DONT SHOW PASSWORD
+                ($option[$i]['type'] == 'password') ? $show = false : null;
+
+            }
+       
+            
+            //UPDATE 
+            if ($section == 'update')
+            {
+                $value      =   $data
+                                ->map
+                                ->only($option[$i]['fieldName'])
+                                ->toArray()[0][$option[$i]['fieldName']];
+
+                $id         =   null;
+            } 
+
+            //NEW 
+            if ($section == 'new')
+            {
+                $value      =   null;
+                $id         =   null;
+            }
+            
+            if($show){
+                array_push($arrViews, $this->myView($section, $view, [
+    
+                    'label'         =>  $option[$i]['label'],
+                    'fieldName'     =>  $option[$i]['fieldName'],
+                    'value'         =>  $value,
+                    'section'       =>  $section,
+                    'option'        =>  $option[$i],
+                    'id'            =>  $id,
+                    'arr'           =>  $option[$i]['arr']
+                    
+                ]));
+            }
+
         }
+        
+        return $arrViews;
+    }
 
-        $user->save();
+    function myView ($section, $view, $arr) {
 
-        return redirect('admin/users');
-
+        return ($section == 'panel' || $section == 'details') ? $arr : view($view, $arr);
+        
     }
 
 }

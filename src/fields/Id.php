@@ -2,22 +2,15 @@
 
 namespace Jviatge\Satadmin\fields;
 
-class Id
-{
-    
-    /**
-     *
-     * @return void
-     */
-    public static function create()
-    {
-        return view('satadmin::id',[
+abstract class Id extends CheckSegment{
 
-            'field' => 'id',
-            'name' => 'Id'
-            
-        ]); 
+    static function create(...$arguments)
+    {
+        $section = parent::section();
+        $class = new Option($arguments, 'id', $section);
+        return $class;
     }
 
-
 } 
+
+

@@ -2,22 +2,15 @@
 
 namespace Jviatge\Satadmin\fields;
 
-class Password
-{
-    
-    /**
-     *
-     * @return void
-     */
-    public static function create($name, $field)
-    {
-        return view('satadmin::password',[
+abstract class Password extends CheckSegment{
 
-            'field' => $field,
-            'name' => $name
-            
-        ]); 
+    static function create(...$arguments)
+    {
+        $section = parent::section();
+        $class = new Option($arguments, 'password', $section);
+        return $class;
     }
 
-
 } 
+
+

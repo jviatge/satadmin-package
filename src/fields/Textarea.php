@@ -2,22 +2,13 @@
 
 namespace Jviatge\Satadmin\fields;
 
-class Textarea
-{
-    
-    /**
-     *
-     * @return void
-     */
-    public static function create($name, $field)
+abstract class Textarea extends CheckSegment{
+
+    static function create(...$arguments)
     {
-        return view('satadmin::textarea',[
-
-            'field' => $field,
-            'name' => $name
-            
-        ]); 
+        $section = parent::section();
+        $class = new Option($arguments, 'textarea', $section);
+        return $class;
     }
-
 
 } 

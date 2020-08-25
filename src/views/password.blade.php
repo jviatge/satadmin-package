@@ -1,26 +1,39 @@
+@if ($section == 'new')
 
-@if (collect(request()->segments())->last() == 'new')
-    
     <div class="form-group row">
-        <label class="col-md-4 col-form-label text-md-right">{{ __( $name ) }}</label>
+        <label class="col-md-4 col-form-label text-md-right">{{ $label }}</label>
 
         <div class="col-md-6">
-            <input type="password" class="form-control @error('{{ $field }}') is-invalid @enderror" name="{{ $field }}" required autocomplete="new-password">
+            <input type="password" class="form-control @error('{{ $fieldName }}') is-invalid @enderror" name="{{ $fieldName }}" required autocomplete="new-password">
 
-            @error('{{ $field }}')
+            @error('{{ $fieldName }}')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
+
+        <input type="text" value="{{ $fieldName }}" name="hash" hidden>
     </div>
 
-    {{-- <div class="form-group row">
-        <label for="{{ $field }}-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm ' . $name ) }}</label>
+@elseif ($section == 'update')
+
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label text-md-right">{{ $label }}</label>
 
         <div class="col-md-6">
-        <input id="{{ $field }}-confirm" type="password" class="form-control" name="{{ $field }}_confirmation" required autocomplete="new-{{ $field }}">
-        </div>
-    </div> --}}
+            <input type="password" class="form-control @error('{{ $fieldName }}') is-invalid @enderror" name="{{ $fieldName }}">
 
+            @error('{{ $fieldName }}')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <input type="text" value="{{ $fieldName }}" name="hash" hidden>
+    </div>
+    
 @endif
+
+

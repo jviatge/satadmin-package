@@ -2,22 +2,15 @@
 
 namespace Jviatge\Satadmin\fields;
 
-class Email
-{
-    
-    /**
-     *
-     * @return void
-     */
-    public static function create($name, $field)
-    {
-        return view('satadmin::email',[
+abstract class Email extends CheckSegment{
 
-            'field' => $field,
-            'name' => $name
-            
-        ]); 
+    static function create(...$arguments)
+    {
+        $section = parent::section();
+        $class = new Option($arguments, 'email', $section);
+        return $class;
     }
 
-
 } 
+
+
