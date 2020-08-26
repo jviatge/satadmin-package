@@ -2,23 +2,16 @@
 
 namespace App\Satadmin;
 
-use Jviatge\Satadmin\Table;
-use Illuminate\Support\Facades\DB;
-use Jviatge\Satadmin\fields\Id;
 use Jviatge\Satadmin\fields\Email;
 use Jviatge\Satadmin\fields\Text;
 use Jviatge\Satadmin\fields\Password;
+use Jviatge\Satadmin\Support as Support;
 
-class Users //extends Table
+class Users extends Support
 {
     public static function label() 
     {
         return 'Users';
-    }
-
-    public static function support() 
-    {
-        return 'users';
     }
 
     public static function table() 
@@ -30,7 +23,6 @@ class Users //extends Table
     {    
         return  [
 
-            Id::create(),
             Text::create('Nom', 'name'),
             Email::create('Email', 'email'),
             Password::create('Password', 'password'),
