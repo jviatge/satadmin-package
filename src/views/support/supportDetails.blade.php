@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="nav navbar-nav ml-auto">
 
-                <a type="button" class="btn btn-success mr-3" href="{{ route('admin.new', [$slug]) }}"><i class="fas fa-plus"></i> New {{ $name ?? '' }}</a> 
+                <a type="button" class="btn btn-secondary mr-3" href="{{ route('admin.update', [$slug, $id]) }}"><i class="far fa-edit"></i> Edit</a> 
                 
                 </div>
             </div>

@@ -12,17 +12,36 @@ Backofice admin panel laravel
 ## INSTALL ## 
 
 ```php
+
 composer require jviatge/satadmin
+
+```
+
+Config ".env"
+
+```php
 
 php artisan satadmin:install
 
-composer require laravel/ui
+npm install && npm run dev
 
-php artisan ui bootstrap
+```
 
-npm install
+## USAGE ## 
 
-npm run dev
+# NEW USER #
+
+```php
+
+php artisan satadmin:user
+
+```
+
+# NEW SUPPORT #
+
+```php
+
+php artisan satadmin:support {NAME}
 
 ```
 

@@ -270,3 +270,53 @@ a.article:hover {
         display: none;
     }
 }
+
+
+/* ---------------------------------------------------
+    FIELD IMG
+----------------------------------------------------- */
+
+.img-upload{
+    max-height: 149px;
+    min-height: 149px;     
+}
+.frame-img{
+    padding: 5px;
+    background-color: rgba(221, 231, 231, 0.226);
+    border: 1px rgba(0, 0, 0, 0.185) solid;
+
+    height: 160px;
+
+    overflow: hidden;
+}
+
+.label-file {
+    cursor: pointer;
+    background-color: #dfe7e98e;
+    color: black;
+    border: rgba(32, 32, 32, 0.568) solid 1px;
+}
+.label-file:hover {
+    background-color: #7a9ea746;
+}
+
+.input-file {
+    display: none;
+}
+
+.imgPanel{
+    height: 40px;
+    width: auto;
+}
+
+.imgPanelModal{
+    max-height: 640px;
+    max-width: 640px;
+    width: auto;
+}
+
+.imgDetails{
+    max-height: 440px;
+    max-width: 440px;
+    width: auto;
+}

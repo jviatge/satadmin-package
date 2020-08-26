@@ -27,9 +27,7 @@
     },
     "scripts": {
         "post-package-install": [
-            "composer require larvel/ui",
-            "php artisan ui bootstrap", 
-            "npm install && npm run dev"
+            "composer require larvel/ui"
         ]
     }
 }

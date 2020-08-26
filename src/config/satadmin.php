@@ -30,4 +30,11 @@ return [
     |
     */
     'slug' => 'admin',
+
+    /*
+    |
+    | Field to user for return image profil
+    |
+    */
+    'imgProfil' => 'image',
 ];

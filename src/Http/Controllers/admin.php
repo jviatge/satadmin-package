@@ -3,14 +3,11 @@
 namespace Jviatge\Satadmin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cookie;
-use Jviatge\Satadmin\Ressources;
 use Jviatge\Satadmin\Layout;
+use Illuminate\Support\Facades\Storage;
 
 class admin extends Controller
 {
@@ -93,6 +90,10 @@ class admin extends Controller
 
     public function supportSendNew(Request $request, $support)
     { 
+        // $this->validate($request, [
+        //     'input_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+
         $checkedClass = Layout::Support($support);
         $myClass = new $checkedClass;
 
@@ -103,16 +104,37 @@ class admin extends Controller
         if($request->hash){
             $hash  =  $request->hash;
             $request[$hash] = Hash::make($request[$hash]);
-        }     
+        }
 
         foreach($request->all() as $key => $value) {
             foreach ($table as $colunm) {
                 if($key == $colunm){
                     if($value != null){
 
-                        $myData[$colunm] = $value;
-                        // Hash::make($password);
-                        
+                        //TRAITEMENT FILE
+                        if($request->hasFile($colunm)){
+
+                            //TRAITEMENT IMAGE
+                            if($request[$colunm]->extension() == 'jpeg' ||  $request[$colunm]->extension() == 'png'){
+                                
+                                $file = $request->file($colunm);
+                                Storage::disk('public')->put('images/', $file);
+                                $myData[$colunm] = $file->hashName();
+                            
+                            // OTHER FILE
+                            } else {
+
+                                $file = $request->file($colunm);
+                                Storage::disk('public')->put('other/', $file);
+                                $myData[$colunm] = $file->hashName();
+
+                            }
+                            
+                        } else {
+
+                            $myData[$colunm] = $value;
+
+                        }                        
                     }
                 }
             }
@@ -151,6 +173,7 @@ class admin extends Controller
             'labels'        =>  Layout::listLabel(),
             'name'          =>  $myClass->label(),
             'slug'          =>  $support,
+            'id'            =>  $id,
 
             'fields'        =>  $fields
         
@@ -160,9 +183,26 @@ class admin extends Controller
 
     public function supportDelete($support, $id)
     { 
+        
+        $checkedClass   =   Layout::Support($support);
+        $myClass        =   new $checkedClass;
+        $model          =   $myClass->table()::where('id', $id);
 
-        DB::table($support)->where('id', $id)->delete();
+        // CHECK AND REMOVE FILE
+        $checkfile = $model->get()->map->toArray();
+        $where = ['images/','other/'];
+        foreach($checkfile[0] as $key => $value)
+        {
+            foreach($where as $path)
+            {
+                if(Storage::disk('public')->exists($path. $value))
+                {
+                    Storage::disk('public')->delete($path. $value);
+                } 
+            }
+        }
 
+        $model->delete();
         return redirect('admin/' . $support);
         
     }
@@ -196,19 +236,19 @@ class admin extends Controller
         ]);
     }
 
-
     public function supportSendUpdate(Request $request, $support, $id)
     { 
         // BASE CLASS
         $checkedClass   =   Layout::Support($support);
         $myClass        =   new $checkedClass;
+        $model          =   $myClass->table()::where('id', $id);
     
         $table          =   DB::getSchemaBuilder()->getColumnListing($support);
         $myData         =   [];
 
         
+        // HASH PASSWORD
         if($request->hash){
-            // HASH PASSWORD
             $hash  =  $request->hash;
             if($request[$hash] != null){
                 $request[$hash] = Hash::make($request[$hash]);
@@ -221,7 +261,41 @@ class admin extends Controller
             foreach ($table as $colunm) {
                 if($key == $colunm){
                     if($value != null){
-                        $myData[$colunm] = $value;             
+                        if($request->hasFile($colunm)){
+
+                             // CHECK AND REMOVE FILE
+                            $checkfile = $model->get()->map->toArray();
+                            $where = ['images/','other/'];
+                            foreach($checkfile[0] as $key => $value)
+                            {
+                                foreach($where as $path)
+                                {
+                                    if(Storage::disk('public')->exists($path. $value))
+                                    {
+                                        Storage::disk('public')->delete($path. $value);
+                                    } 
+                                }
+                            }
+
+                            //TRAITEMENT IMAGE
+                            if($request[$colunm]->extension() == 'jpeg' ||  $request[$colunm]->extension() == 'png'){
+                                
+                                $file = $request->file($colunm);
+                                Storage::disk('public')->put('images/', $file);
+                                $myData[$colunm] = $file->hashName();
+                            
+                            // OTHER FILE
+                            } else {
+
+                                $file = $request->file($colunm);
+                                Storage::disk('public')->put('other/', $file);
+                                $myData[$colunm] = $file->hashName();
+
+                            }
+                            
+                        } else {
+                            $myData[$colunm] = $value;             
+                        }
                     }
                 }
             }
@@ -247,6 +321,7 @@ class admin extends Controller
             //PANEL
             if($section == 'panel')
             {
+      
                 // GET VALUE
                 $arrValues  =   $data
                                 ->map
@@ -255,7 +330,20 @@ class admin extends Controller
                 $value      =   [];
                 foreach($arrValues as $arrValue)
                 {
-                    array_push($value, $arrValue[$option[$i]['fieldName']]); 
+                    // FIELD VIEW
+                    if( $option[$i]['type'] == 'image' || 
+                        $option[$i]['type'] == 'email'){
+                        array_push($value, view($view, [
+
+                            'section'   =>  $section,
+                            'value'     =>  $arrValue[$option[$i]['fieldName']
+
+                        ]])); 
+                    }  
+                    else {
+
+                        array_push($value, $arrValue[$option[$i]['fieldName']]); 
+                    } 
                 }
        
                 
@@ -278,7 +366,7 @@ class admin extends Controller
             //DETAILS
             if($section == 'details')
             {
-                
+            
                 $arrValues  =   $data
                                 ->map
                                 ->only($option[$i]['fieldName'])
@@ -286,7 +374,21 @@ class admin extends Controller
                 $value      =   [];
                 foreach($arrValues as $arrValue)
                 {
-                    array_push($value, $arrValue[$option[$i]['fieldName']]); 
+
+                    // FIELD VIEW
+                    if( $option[$i]['type'] == 'image' || 
+                        $option[$i]['type'] == 'email'){      
+                        array_push($value, view($view, [
+
+                            'section'   =>  $section,
+                            'value'     =>  $arrValue[$option[$i]['fieldName']
+
+                        ]])); 
+                    }  else {
+
+                        array_push($value, $arrValue[$option[$i]['fieldName']]); 
+                    } 
+               
                 }
            
                 $id         =   $data
@@ -299,7 +401,6 @@ class admin extends Controller
 
             }
        
-            
             //UPDATE 
             if ($section == 'update')
             {
@@ -333,7 +434,9 @@ class admin extends Controller
             }
 
         }
-        
+        // //---------------------------
+        // dd();
+        // //---------------------------
         return $arrViews;
     }
 
@@ -344,3 +447,5 @@ class admin extends Controller
     }
 
 }
+
+

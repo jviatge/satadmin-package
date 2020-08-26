@@ -37,7 +37,7 @@
 @section('content')
  
 <div class="card-body">
-    <form action="{{ route('admin.send.update',[$slug, $id]) }}" method="POST">
+    <form enctype="multipart/form-data" action="{{ route('admin.send.update',[$slug, $id]) }}" method="POST">
 
         @csrf
 

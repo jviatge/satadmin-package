@@ -38,7 +38,7 @@
 
     
 <div class="card-body">
-    <form action="{{ route('admin.send.new',[$slug]) }}" method="POST">
+    <form enctype="multipart/form-data" action="{{ route('admin.send.new',[$slug]) }}" method="POST">
 
         @csrf
         

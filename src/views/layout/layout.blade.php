@@ -33,7 +33,13 @@
 
                     <div class="d-flex align-items-center justify-content-lg-between profile-bar px-3">
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset('storage/images/satadmin/unknown.png') }}" class="rounded-circle" height="45" width="45"> 
+    
+                            @if (Auth::user()[config('satadmin.imgProfil')])
+                                <img src="{{ Storage::disk('public')->url('images/' . Auth::user()[config('satadmin.imgProfil')]) }}" class="rounded-circle" height="45" width="45">
+                            @else
+                                <img src="{{ asset('storage/images/satadmin/unknown.png') }}" class="rounded-circle" height="45" width="45"> 
+                            @endif
+                            
                             <div>
                                 <p class="p-0 px-2 m-0 ml-2">
                                     {{ Auth::user()->name }}
@@ -117,6 +123,35 @@
             });
             
         });
+
+
+        // IMAGE PREVIEW
+        let imgInp = document.getElementsByClassName("imgInp");
+
+        for (let i = 0; i < imgInp.length; i++) {
+            imgInp[i].addEventListener("change", function(){
+
+                readURL(this, i);
+
+            }, false);
+        }
+
+        function readURL(input, i) {
+		    if (input.files && input.files[0]) {
+
+                let span = document.getElementsByClassName('nameImgUpload')[i];
+                span.innerHTML = input.files[0].name;
+                
+		        let reader = new FileReader();
+		        reader.onload = function (e) {
+                    let img_upload = document.getElementsByClassName('img-upload')[i];
+		            img_upload.setAttribute('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+       	
 
         </script>
     </body>
