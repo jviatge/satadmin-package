@@ -67,26 +67,9 @@ class installCommand extends Command
         Artisan::call('migrate');
         $this->info(Artisan::output());
 
-        // 1) add service provider 
-
-        // 2) php artisan vendor:publish --provider="Jviatge\Satadmin\SatadminServiceProvider"
-
-        // $homepage = file_get_contents(config_path('app.php'));
-        // echo $homepage;
       
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -97,14 +80,12 @@ class installCommand extends Command
 
 namespace App\Satadmin;
 
-use Jviatge\Satadmin\Table;
-use Illuminate\Support\Facades\DB;
-use Jviatge\Satadmin\\fields\Id;
 use Jviatge\Satadmin\\fields\Email;
 use Jviatge\Satadmin\\fields\Text;
 use Jviatge\Satadmin\\fields\Password;
+use Jviatge\Satadmin\Support as Support;
 
-class Users //extends Table
+class Users extends Support
 {
     public static function label() 
     {
@@ -125,7 +106,6 @@ class Users //extends Table
     {    
         return  [
 
-            Id::create(),
             Text::create('Nom', 'name'),
             Email::create('Email', 'email'),
             Password::create('Password', 'password'),
