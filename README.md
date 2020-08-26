@@ -29,7 +29,7 @@ npm install && npm run dev
 
 ## USAGE ## 
 
-# NEW USER #
+###  NEW USER ### 
 
 ```php
 
@@ -37,7 +37,7 @@ php artisan satadmin:user
 
 ```
 
-# NEW SUPPORT #
+###  NEW SUPPORT ### 
 
 ```php
 
