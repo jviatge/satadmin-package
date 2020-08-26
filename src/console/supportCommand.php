@@ -21,6 +21,7 @@ class supportCommand extends Command
         $Content = "<?php 
 
 namespace App\Satadmin;
+
 use Jviatge\Satadmin\Support as Support;
 
 class {$support}s extends Support
