@@ -92,11 +92,6 @@ class Users extends Support
         return 'Users';
     }
 
-    public static function support() 
-    {
-        return 'users';
-    }
-
     public static function table() 
     {
         return  \App\User::class;
