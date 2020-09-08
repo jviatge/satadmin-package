@@ -24,7 +24,7 @@ namespace App\Satadmin;
 
 use Jviatge\Satadmin\Support as Support;
 
-class {$support}s extends Support
+class {$support} extends Support
 {
     public static function label() 
     {
@@ -34,6 +34,11 @@ class {$support}s extends Support
     public static function table() 
     {
         return  \App\\{$support} ::class;
+    }
+
+    public static function fieldSearch() 
+    {
+        return 'name';
     }
 
     public static function fields() 

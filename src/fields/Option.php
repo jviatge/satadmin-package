@@ -5,17 +5,10 @@ use JsonSerializable;
 
 class Option implements JsonSerializable {
 
-    // private $arguments;
-
-    // private $type;
-
-    // private $section;
-
-    // private $hash;
-
-
     public function __construct($arguments, $type, $section)
     {
+        // dd($arguments, $type, $section);
+
         $this->arguments    =   $arguments; 
         $this->fieldName    =   $arguments[1]; 
         $this->type         =   $type;    
@@ -28,7 +21,6 @@ class Option implements JsonSerializable {
     public function name () {
         return $this->arguments[0];
     }
-
 
     public function jsonSerialize() {
         return array_merge([

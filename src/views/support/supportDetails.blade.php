@@ -36,14 +36,21 @@
 
 @section('content')
 
+@php
+    if (isset($fields[count($fields) - 1]['extend']))
+    {
+      $extend = $fields[count($fields) - 1]['extend'];
+      unset($fields[count($fields) - 1]);
+    }
+@endphp
 
 <table class="table">
-    <thead>
+    {{-- <thead>
       <tr>
         <th scope="col">Column</th>
         <th scope="col">Value</th>
       </tr>
-    </thead>
+    </thead> --}}
     <tbody>
       @foreach ($fields as $Field)  
 
@@ -53,9 +60,15 @@
       </tr>
   
       @endforeach
+
     </tbody>
   </table>
-    
+
+  @if(isset($extend))
+    {{ $extend }}
+  @endif
+  
+
 
 
 @endsection

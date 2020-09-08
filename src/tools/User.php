@@ -7,7 +7,7 @@ use Jviatge\Satadmin\fields\Text;
 use Jviatge\Satadmin\fields\Password;
 use Jviatge\Satadmin\Support as Support;
 
-class Users extends Support
+class User extends Support
 {
     public static function label() 
     {
@@ -17,6 +17,11 @@ class Users extends Support
     public static function table() 
     {
         return  \App\User::class;
+    }
+
+    public static function fieldSearch() 
+    {
+        return 'name';
     }
 
     public static function fields() 

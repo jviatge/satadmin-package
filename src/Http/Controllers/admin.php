@@ -18,6 +18,7 @@ class admin extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->section = false;
     }
 
     public function homePanel()
@@ -47,7 +48,7 @@ class admin extends Controller
         $option = (array) json_decode($tabJson,true);
 
         // CREATE VIEW
-        $fields = $this->createFields($option, $model);
+        $fields = $this->createFields($option, $model, $myClass);
 
         return view('satadmin::support/supportPanel', [
 
@@ -97,7 +98,7 @@ class admin extends Controller
         $checkedClass = Layout::Support($support);
         $myClass = new $checkedClass;
 
-        $table          =   DB::getSchemaBuilder()->getColumnListing($support);
+        $table          =   DB::getSchemaBuilder()->getColumnListing($support . 's');
         $myData         =   [];
 
         // HASH PASSWORD
@@ -153,19 +154,15 @@ class admin extends Controller
         $checkedClass   =   Layout::Support($support);
         $myClass        =   new $checkedClass;
       
-
         // DATA
         $model          =   $myClass->table()::where('id', $id)->get();
 
-      
         // OPTION
         $tabJson = json_encode($myClass->fields());
         $option = (array) json_decode($tabJson,true);
 
-        // CREATE VIEW
-        $fields = $this->createFields($option, $model);
-        // dd($fields);
-
+        // CREATE VIEW        
+        $fields = $this->createFields($option, $model, $myClass);
 
         return view('satadmin::support/supportDetails', [
 
@@ -203,8 +200,7 @@ class admin extends Controller
         }
 
         $model->delete();
-        return redirect('admin/' . $support);
-        
+        return back();
     }
 
     public function supportUpdate($support, $id)
@@ -243,7 +239,7 @@ class admin extends Controller
         $myClass        =   new $checkedClass;
         $model          =   $myClass->table()::where('id', $id);
     
-        $table          =   DB::getSchemaBuilder()->getColumnListing($support);
+        $table          =   DB::getSchemaBuilder()->getColumnListing($support . 's');
         $myData         =   [];
 
         
@@ -308,118 +304,189 @@ class admin extends Controller
     }
 
 
-    function createFields ($option, $data)
+    function createFields ($option, $data, ...$arr)
     {
-        $arrViews = [];
+        isset($arr[0]) ? $class  =  $arr[0] : null;
+
+        $arrViews   =   [];
 
         for ($i=0; $i < count($option); $i++) { 
 
-            $section        =   $option[$i]['section'];
+            ($this->section == false) ? $section = $option[$i]['section'] : 
+            $section        =   $this->section;
             $view           =   'satadmin::' . $option[$i]['type'];
             $show           =   true;
+            $extend         =   [];
             
             //PANEL
             if($section == 'panel')
             {
-      
-                // GET VALUE
-                $arrValues  =   $data
-                                ->map
-                                ->only($option[$i]['fieldName'])
-                                ->toArray();
-                $value      =   [];
-                foreach($arrValues as $arrValue)
-                {
-                    // FIELD VIEW
-                    if( $option[$i]['type'] == 'image' || 
-                        $option[$i]['type'] == 'email'){
-                        array_push($value, view($view, [
+                
+                if( $option[$i]['type'] != 'hasmany' && 
+                    $option[$i]['type'] != 'password'){
 
-                            'section'   =>  $section,
-                            'value'     =>  $arrValue[$option[$i]['fieldName']
+                     // GET VALUE 
+                    $arrValues  =   $data
+                                    ->map
+                                    ->only($option[$i]['fieldName'])
+                                    ->toArray();
+                    $value      =   [];
+                    foreach($arrValues as $arrValue)
+                    {
+                        // FIELD VIEW
+                        if( $option[$i]['type'] == 'image' || 
+                            $option[$i]['type'] == 'email' ||
+                            $option[$i]['type'] == 'belongsto'){
+                            
+                            // BLOCAGE 
+                            ($option[$i]['section'] == 'details') ?  $show = false : null;
+         
+                            if($option[$i]['type'] == 'belongsto')
+                            {
+                                $classSeg = explode('\\',get_class($data[0]))[1];
+                            } else {
+                                $classSeg = null;
+                            }
+             
+                            array_push($value, view($view, [
 
-                        ]])); 
+                                'classSeg'      =>  $classSeg,
+                                'data'          =>  $option[$i],
+                                'section'       =>  $section,
+                                'value'         =>  $arrValue[$option[$i]['fieldName']
+
+                            ]])); 
+                        }  
+                        else {
+                            array_push($value, $arrValue[$option[$i]['fieldName']]); 
+                        } 
                     }  
-                    else {
 
-                        array_push($value, $arrValue[$option[$i]['fieldName']]); 
-                    } 
-                }
-       
-                
-                // GET ID
-                $arrIds     =   $data
-                                ->map
-                                ->only('id')
-                                ->toArray();
-                $id         =   [];
-                foreach($arrIds as $arrId)
-                {
-                    array_push($id, $arrId['id']);
-                }
+                    // GET ID
+                    $arrIds     =   $data
+                                    ->map
+                                    ->only('id')
+                                    ->toArray();
+                    $id         =   [];
+                    foreach($arrIds as $arrId)
+                    {
+                        array_push($id, $arrId['id']);
+                    }
 
-                // DONT SHOW PASSWORD
-                ($option[$i]['type'] == 'password') ? $show = false : null;
-                
+                } else { $show = false; }
             }
-            
+                   
             //DETAILS
             if($section == 'details')
             {
-            
-                $arrValues  =   $data
-                                ->map
-                                ->only($option[$i]['fieldName'])
-                                ->toArray();
-                $value      =   [];
-                foreach($arrValues as $arrValue)
+
+                if( $option[$i]['type'] != 'hasmany' &&
+                    $option[$i]['type'] != 'password')
                 {
 
-                    // FIELD VIEW
-                    if( $option[$i]['type'] == 'image' || 
-                        $option[$i]['type'] == 'email'){      
-                        array_push($value, view($view, [
+                    $arrValues  =   $data
+                                    ->map
+                                    ->only($option[$i]['fieldName'])
+                                    ->toArray();
+                    $value      =   [];
+                    foreach($arrValues as $arrValue)
+                    {
+    
+                        // FIELD VIEW
+                        if( $option[$i]['type'] == 'image' || 
+                            $option[$i]['type'] == 'email' ||
+                            $option[$i]['type'] == 'belongsto'){   
 
-                            'section'   =>  $section,
-                            'value'     =>  $arrValue[$option[$i]['fieldName']
+                            if($option[$i]['type'] == 'belongsto')
+                            {
+                                $classSeg = explode('\\',get_class($data[0]))[1];
+                            } else {
+                                $classSeg = null;
+                            }
 
-                        ]])); 
-                    }  else {
+                            array_push($value, view($view, [
 
-                        array_push($value, $arrValue[$option[$i]['fieldName']]); 
-                    } 
+                                'classSeg'      =>  $classSeg,
+                                'data'          =>  $option[$i],
+                                'section'       =>  $section,
+                                'value'         =>  $arrValue[$option[$i]['fieldName']
+    
+                            ]])); 
+                        } else {
+                            array_push($value, $arrValue[$option[$i]['fieldName']]); 
+                        } 
+                   
+                    }
                
+                    $id         =   $data
+                                    ->map
+                                    ->only('id')
+                                    ->toArray()[0]['id'];
+
+                } else {              
+                    ($option[$i]['type'] == 'hasmany') ? 
+                        array_push($extend, $option[$i], $data)
+                        : null;
+                    $show = false;
                 }
-           
-                $id         =   $data
-                                ->map
-                                ->only('id')
-                                ->toArray()[0]['id'];
-
-                // DONT SHOW PASSWORD
-                ($option[$i]['type'] == 'password') ? $show = false : null;
-
             }
        
             //UPDATE 
             if ($section == 'update')
             {
-                $value      =   $data
-                                ->map
-                                ->only($option[$i]['fieldName'])
-                                ->toArray()[0][$option[$i]['fieldName']];
+                if( $option[$i]['type'] == 'hasmany')
+                {
+                    $show = false;
 
-                $id         =   null;
+                } elseif($option[$i]['type'] == 'belongsto') {
+
+                    $myClass    =   $option[$i]['arr']::table();
+                    $searchable =   $option[$i]['arr']::fieldSearch();
+                    $myClass    =   new $myClass;
+
+                    $value      =   $myClass::get()->pluck($searchable, 'id');
+                    $id         =   $data
+                                    ->map
+                                    ->only('id')
+                                    ->toArray()[0]['id'];
+                    
+                } else {
+
+                    $value      =   $data
+                                    ->map
+                                    ->only($option[$i]['fieldName'])
+                                    ->toArray()[0][$option[$i]['fieldName']];
+    
+                    $id         =   null;
+                  
+                }
             } 
 
             //NEW 
             if ($section == 'new')
             {
-                $value      =   null;
-                $id         =   null;
+                if( $option[$i]['type'] == 'hasmany'){
+
+                    $show = false;
+
+                } elseif($option[$i]['type'] == 'belongsto') {
+
+                    $myClass    =   $option[$i]['arr']::table();
+                    $searchable =   $option[$i]['arr']::fieldSearch();
+                    $myClass    =   new $myClass;
+
+                    $value      =   $myClass::get()->pluck($searchable, 'id');
+                    $id         =   null;
+                    
+                } else {   
+
+                    $value      =   null;
+                    $id         =   null;
+                }
             }
             
-            if($show){
+            if($show)
+            {
                 array_push($arrViews, $this->myView($section, $view, [
     
                     'label'         =>  $option[$i]['label'],
@@ -432,18 +499,63 @@ class admin extends Controller
                     
                 ]));
             }
-
         }
-        // //---------------------------
-        // dd();
-        // //---------------------------
+
+        if($extend != null)
+        {
+            array_push($arrViews, $this->newTab($extend[0], $class, $id));
+        }
+
         return $arrViews;
     }
+    
+    function newTab($option, $class, $id)
+    {
+        $myClass            =   new $option['arr'];
+        $this->section      =   'panel';     
+        $modelActu          =   $class->table()::all();
+        $model              =   [];
+        $classSeg           =   strtolower(explode('\\',get_class($class))[2]. '_id');
 
-    function myView ($section, $view, $arr) {
+        foreach($modelActu as $firstMod)
+        {
+            foreach($firstMod[$option['fieldName']] as $eloquentR)
+            {
+                ($eloquentR[$classSeg] == $id) ? array_push($model, $eloquentR) : null;
+            }
+        }
+      
+        // OPTION
+        $tabJson = json_encode($myClass->fields());
+        $optionJson = (array) json_decode($tabJson,true);
 
-        return ($section == 'panel' || $section == 'details') ? $arr : view($view, $arr);
+        // CREATE VIEW
+        $fields = $this->createFields($optionJson, collect($model));
+       
+        return ['extend' =>  view('satadmin::blocks/array', [
+
+            'name'          =>  $option['label'],
+            'slug'          =>  strtolower(explode("\\",$option['arr'])[3]),
+            'fields'        =>  $fields
         
+        ])];
+    }
+
+    function beLongsTo($option, $class)
+    {
+        $modelActu          =   $class->table()::all();
+        $model              =   [];
+        foreach($modelActu as $firstMod)
+        {
+            array_push($model, $firstMod[$option['fieldName']]);
+        }   
+        
+        return $model;
+    }
+
+    function myView ($section, $view, $arr)
+    {
+        return ($section == 'panel' || $section == 'details') ? $arr : view($view, $arr);      
     }
 
 }

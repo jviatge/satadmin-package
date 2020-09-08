@@ -33,23 +33,7 @@ class userCommand extends Command
             'password' => $hash
         ]);
 
-
-        // User::create([
-        //     'name' => $name,
-        //     'email' => $email,
-        //     'password' => $hash
-        // ]);
-
-        // $user = new User();
-        // $user->name = $name;
-        // $user->email = $email;
-        // $user->password = $hash;
-        // $user->save();
-
         $this->info('Finish !');
-
-        
-      
 
     }
 }

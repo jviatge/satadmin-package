@@ -320,3 +320,37 @@ a.article:hover {
     max-width: 440px;
     width: auto;
 }
+
+
+
+/* TABLE */
+td{
+    padding-left: 10px !important;
+    font-size: 17px;
+}
+.thPadding{
+    background-color: #dfe7e98e;
+    border: none !important;
+    padding-left: 10px !important;
+    font-size: 17px;
+}
+.gestionWith{
+    width: 152px;
+}
+.checkWith{
+    background-color: #dfe7e98e;
+    /* border: none !important; */
+    width: 35px;
+}
+
+table a{
+    color: #6d7fcc;
+}
+table a:hover{
+    color: #2d3e8d !important;
+}
+
+.fieldValueSata{
+    border-right: none !important;
+    border-left: none !important;
+}
