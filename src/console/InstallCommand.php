@@ -28,6 +28,9 @@ class installCommand extends Command
         Artisan::call('ui bootstrap');
         $this->info(Artisan::output());
 
+        Artisan::call('storage:link');
+        $this->info(Artisan::output());
+
         $this->info('npm install');
         exec('npm install');
 
@@ -36,9 +39,6 @@ class installCommand extends Command
 
         $this->info('npm run dev');
         exec('npm run dev');
-
-        Artisan::call('storage:link');
-        $this->info(Artisan::output());
         
         Artisan::call('config:clear');
         $this->info(Artisan::output());
