@@ -4,22 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Satadmin</title>
+        <title>Satadmin - login</title>
 
-        <!-- Fonts -->
-
-
-         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
    
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/satadmin.css') }}" rel="stylesheet">
 
-        
     </head>
    
-    <body>
+    <body id="satadmin-app-backofice">
                 
         <div class="sidenav">
             <div class="login-main-text">

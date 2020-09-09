@@ -1,43 +1,47 @@
+/* background-color: #2f435e; */
+/* background-color: #2f435e; */
+/* 
+#2f435e, #44566c, #ececec, #4b5e65, #201b22.  */
 
-/* #2f435e, #44566c, #ececec, #4b5e65, #201b22. */
 
-.main-head{
+
+#satadmin-app-backofice .main-head{
     height: 150px;
     background: #FFF;
 
 }
 
-.sidenav {
+#satadmin-app-backofice .sidenav {
     height: 100%;
     background-color: #2f435e;
     overflow-x: hidden;
     padding-top: 20px;
 }
 
-.main {
+#satadmin-app-backofice .main {
     padding: 0px 10px;
 }
 
 @media  screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
+    #satadmin-app-backofice .sidenav {padding-top: 15px;}
 }
 
 @media  screen and (max-width: 450px) {
-    .login-form{
+    #satadmin-app-backofice .login-form{
         margin-top: 10%;
     }
 
-    .register-form{
+    #satadmin-app-backofice .register-form{
         margin-top: 10%;
     }
 }
 
 @media  screen and (min-width: 768px){
-    .main{
+    #satadmin-app-backofice .main{
         margin-left: 40%; 
     }
 
-    .sidenav{
+    #satadmin-app-backofice .sidenav{
         width: 40%;
         position: fixed;
         z-index: 1;
@@ -45,17 +49,17 @@
         left: 0;
     }
 
-    .login-form{
+    #satadmin-app-backofice .login-form{
         margin-top: 80%;
     }
 
-    .register-form{
+    #satadmin-app-backofice .register-form{
         margin-top: 20%;
     }
 }
 
 
-.login-main-text{
+#satadmin-app-backofice .login-main-text{
     margin-top: 20%;
     padding: 60px;
     color: #fff;
@@ -63,26 +67,26 @@
     animation-duration: 0.7s;
 }
 
-#loginFormHome{
+#satadmin-app-backofice #loginFormHome{
     animation-name: fadeIn;
     animation-duration: 0.7s;
 }
 
-.login-main-text h2{
+#satadmin-app-backofice  .login-main-text h2{
     font-weight: 300;
 }
 
-.btn-black{
+#satadmin-app-backofice .btn-black{
     background-color: #000 !important;
     color: #fff;
 }
 
-.sidenav h1{
+#satadmin-app-backofice .sidenav h1{
     font-size: 47px;
     font-family: "AlexBrush";
 }
 
-.loading{
+#satadmin-app-backofice .loading{
     margin-top: 300px;
     animation-name: fadeIn;
     animation-fill-mode: both;
@@ -91,12 +95,12 @@
 
 /* SATADMIN */
 
-body {
+#satadmin-app-backofice body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
 }
 
-p {
+#satadmin-app-backofice .loginText p {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
@@ -104,15 +108,15 @@ p {
     color: #999;
 }
 
-a,
-a:hover,
-a:focus {
+#satadmin-app-backofice #sidebar a,
+#satadmin-app-backofice #sideba a:hover,
+#satadmin-app-backofice #sideba a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
 }
 
-.navbar {
+#satadmin-app-backofice .navbar {
     padding: 15px 10px;
     background: #fff;
     border: none;
@@ -121,13 +125,13 @@ a:focus {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-btn {
+#satadmin-app-backofice .navbar-btn {
     box-shadow: none;
     outline: none !important;
     border: none;
 }
 
-.line {
+#satadmin-app-backofice .line {
     width: 100%;
     height: 1px;
     border-bottom: 1px dashed #ddd;
@@ -137,17 +141,17 @@ a:focus {
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
-.profile-bar{
+#satadmin-app-backofice .profile-bar{
     background-color: #575d64;
     padding: 10px 0;
 }
 
-.wrapper {
+#satadmin-app-backofice .wrapper {
     display: flex;
     width: 100%;
 }
 
-#sidebar {
+#satadmin-app-backofice #sidebar {
     width: 250px;
     position: fixed;
     top: 0;
@@ -159,42 +163,46 @@ a:focus {
     transition: all 0.3s;
 }
 
-#sidebar.active {
+#satadmin-app-backofice #sidebar.active {
     margin-left: -250px;
 }
 
-#sidebar .sidebar-header {
+#satadmin-app-backofice #sidebar .sidebar-header {
     padding: 20px;
     background: #2f435e;
 }
 
-#sidebar ul p {
+/* #satadmin-app-backofice #sidebar ul.components {
+    border-bottom: 1px solid #47748b;
+} */
+
+#satadmin-app-backofice #sidebar ul p {
     color: #fff;
     padding: 10px;
 }
 
-#sidebar ul li a {
+#satadmin-app-backofice #sidebar ul li a {
     padding: 15px 15px 15px 21px;
     font-size: 1.1em;
     display: block;
 }
 
-#sidebar ul li a:hover {
+#satadmin-app-backofice #sidebar ul li a:hover {
     background: #1d202c !important;
     color: white !important;
 }
 
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
+#satadmin-app-backofice #sidebar ul li.active>a,
+#satadmin-app-backofice a[aria-expanded="true"] {
     background: #1d202c !important;
     color: white !important;
 }
 
-a[data-toggle="collapse"] {
+#satadmin-app-backofice a[data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
+#satadmin-app-backofice .dropdown-toggle::after {
     display: block;
     position: absolute;
     top: 50%;
@@ -202,17 +210,17 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
-ul ul a {
+#satadmin-app-backofice ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
 }
 
-ul.CTAs {
+#satadmin-app-backofice ul.CTAs {
     padding: 20px;
 }
 
-ul.CTAs a {
+#satadmin-app-backofice ul.CTAs a {
     text-align: center;
     font-size: 0.9em !important;
     display: block;
@@ -220,13 +228,13 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-a.download {
+#satadmin-app-backofice a.download {
     background: #fff;
     color: #7386D5;
 }
 
-a.article,
-a.article:hover {
+#satadmin-app-backofice a.article,
+#satadmin-app-backofice a.article:hover {
     background: #1d202c !important;
     color: white !important;
 }
@@ -235,7 +243,7 @@ a.article:hover {
     CONTENT STYLE
 ----------------------------------------------------- */
 
-#content {
+#satadmin-app-backofice #content {
     width: calc(100% - 250px);
     padding: 40px;
     min-height: 100vh;
@@ -245,7 +253,7 @@ a.article:hover {
     right: 0;
 }
 
-#content.active {
+#satadmin-app-backofice #content.active {
     width: 100%;
 }
 
@@ -254,19 +262,19 @@ a.article:hover {
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
-    #sidebar {
+    #satadmin-app-backofice #sidebar {
         margin-left: -250px;
     }
-    #sidebar.active {
+    #satadmin-app-backofice #sidebar.active {
         margin-left: 0;
     }
-    #content {
+    #satadmin-app-backofice #content {
         width: 100%;
     }
-    #content.active {
+    #satadmin-app-backofice #content.active {
         width: calc(100% - 250px);
     }
-    #sidebarCollapse span {
+    #satadmin-app-backofice #sidebarCollapse span {
         display: none;
     }
 }
@@ -276,11 +284,11 @@ a.article:hover {
     FIELD IMG
 ----------------------------------------------------- */
 
-.img-upload{
+#satadmin-app-backofice .img-upload{
     max-height: 149px;
     min-height: 149px;     
 }
-.frame-img{
+#satadmin-app-backofice .frame-img{
     padding: 5px;
     background-color: rgba(221, 231, 231, 0.226);
     border: 1px rgba(0, 0, 0, 0.185) solid;
@@ -290,67 +298,103 @@ a.article:hover {
     overflow: hidden;
 }
 
-.label-file {
+#satadmin-app-backofice .label-file {
     cursor: pointer;
     background-color: #dfe7e98e;
     color: black;
     border: rgba(32, 32, 32, 0.568) solid 1px;
 }
-.label-file:hover {
+#satadmin-app-backofice .label-file:hover {
     background-color: #7a9ea746;
 }
 
-.input-file {
+#satadmin-app-backofice .input-file {
     display: none;
 }
 
-.imgPanel{
+#satadmin-app-backofice .imgPanel{
     height: 40px;
     width: auto;
 }
 
-.imgPanelModal{
+#satadmin-app-backofice .imgPanelModal{
     max-height: 640px;
     max-width: 640px;
     width: auto;
 }
 
-.imgDetails{
+#satadmin-app-backofice .imgDetails{
     max-height: 440px;
     max-width: 440px;
     width: auto;
 }
 
 
-
 /* TABLE */
-td{
+#satadmin-app-backofice td{
     padding-left: 10px !important;
     font-size: 17px;
 }
-.thPadding{
+#satadmin-app-backofice .thPadding{
     background-color: #dfe7e98e;
     border: none !important;
     padding-left: 10px !important;
     font-size: 17px;
 }
-.gestionWith{
+#satadmin-app-backofice .gestionWith{
     width: 152px;
 }
-.checkWith{
-    background-color: #dfe7e98e;
+#satadmin-app-backofice .checkWith{
+    background-color: #e8f1f38e;
     /* border: none !important; */
     width: 35px;
 }
 
-table a{
+#satadmin-app-backofice table .fieldValueSata a{
     color: #6d7fcc;
 }
-table a:hover{
+#satadmin-app-backofice table .fieldValueSata a:hover{
     color: #2d3e8d !important;
 }
 
-.fieldValueSata{
+#satadmin-app-backofice .fieldValueSata{
+    vertical-align: center;
+    white-space: nowrap !important;
+    overflow: hidden;
+    max-width: 300px !important;
     border-right: none !important;
     border-left: none !important;
+}
+
+#satadmin-app-backofice .fieldValueSataDetails{
+    vertical-align: center;
+    max-width: 300px !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+#satadmin-app-backofice table tr{
+    max-height: 46px !important;
+}
+
+#satadmin-app-backofice .nameAuth{
+    font-size: 16px !important;
+}
+
+#satadmin-app-backofice #sidebar{
+    -webkit-box-shadow: -3px -1px 13px 2px rgba(122,122,122,1);
+    -moz-box-shadow: -3px -1px 13px 2px rgba(122,122,122,1);
+    box-shadow: -3px -1px 13px 2px rgba(122,122,122,1);
+}
+
+#satadmin-app-backofice table{
+    font-size: 15px !important;
+}
+#satadmin-app-backofice .sectionQuill{
+    margin-bottom: 60px;
+}
+#satadmin-app-backofice #editor{
+    color: black !important;
+    background-color: white;
+
 }

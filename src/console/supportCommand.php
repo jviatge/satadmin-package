@@ -14,9 +14,16 @@ class supportCommand extends Command
 
     public function handle()
     {
+        $version = explode('.', app()->version())[0];
 
         $support = $this->argument('support');
         $bddName = strtolower ($this->argument('support')) . 's';
+
+        if($version <= 8){
+            $model   = '\App\Models\\' . $support;
+        } else {
+            $model   = '\App\\' . $support;
+        }
 
         $Content = "<?php 
 
@@ -33,7 +40,7 @@ class {$support} extends Support
 
     public static function table() 
     {
-        return  \App\\{$support} ::class;
+        return  {$model}::class;
     }
 
     public static function fieldSearch() 

@@ -12,6 +12,14 @@ class SatadminServiceProvider extends ServiceProvider{
      */
     public function boot()
     {
+        $version = explode('.', app()->version())[0];
+
+        if($version <= 8){
+            $userURL   = '/tools/v8/User.php';
+        } else {
+            $userURL   = '/tools/vother/User.php';
+        }
+
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadViewsFrom(__DIR__.'/views', 'satadmin');
         $this->mergeConfigFrom(__DIR__.'/config/satadmin.php', 'satadmin');
@@ -19,8 +27,9 @@ class SatadminServiceProvider extends ServiceProvider{
             __DIR__.'/config/satadmin.php'      => config_path('satadmin.php'),
             __DIR__.'/css/satadmin.css'         => public_path('css/satadmin.css'),
             __DIR__.'/js/fontawesome/all.js'    => public_path('js/fontawesome/all.js'),
-            __DIR__.'/tools/User.php'          => app_path('Satadmin/User.php'),
+            __DIR__. $userURL                   => app_path('Satadmin/User.php'),
             __DIR__.'/tools/unknown.png'        => public_path('storage/images/satadmin/unknown.png'),
+            __DIR__.'/tools/webpack.mix.js'     => base_path('webpack.mix.js'),
         ]);
         
         app()->config["filesystems.disks.Satadmin"] = [
@@ -38,6 +47,7 @@ class SatadminServiceProvider extends ServiceProvider{
             Console\installCommand::class,
             Console\supportCommand::class,
             Console\userCommand::class,
+            Console\testCommand::class,
         ]);
         
     }

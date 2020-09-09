@@ -26,7 +26,7 @@ class userCommand extends Command
 
         $hash = Hash::make($password);
 
-        $myModel =  \App\User::class;
+        $myModel =  \App\Models\User::class;
         $myModel::create([
             'name' => $name,
             'email' => $email,

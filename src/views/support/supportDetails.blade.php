@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="nav navbar-nav ml-auto">
 
-                <a type="button" class="btn btn-secondary mr-3" href="{{ route('admin.update', [$slug, $id]) }}"><i class="far fa-edit"></i> Edit</a> 
+                <a type="button" class="btn btn-outline-secondary mr-3" href="{{ route('admin.update', [$slug, $id]) }}"><i class="far fa-edit"></i> Edit</a> 
                 
                 </div>
             </div>
@@ -56,7 +56,7 @@
 
       <tr>
         <th scope="row">{{ $Field['label'] }}</th>
-        <td>{{ $Field['value'][0] }}</td>
+        <td class="fieldValueSataDetails">{{ $Field['value'][0] }}</td>
       </tr>
   
       @endforeach

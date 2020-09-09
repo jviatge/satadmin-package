@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Satadmin</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -16,10 +16,17 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/satadmin.css') }}" rel="stylesheet">
+        {{-- <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet"> --}}
+
+
+        <!-- Include Quill stylesheet -->
+        <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+        <!-- Include the Quill library -->
+        <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
    
         
     </head>
-    <body>
+    <body id="satadmin-app-backofice">
         <div class="wrapper">
             <!-- Sidebar  -->
             <nav id="sidebar">
@@ -33,18 +40,18 @@
 
                     <div class="d-flex align-items-center justify-content-lg-between profile-bar px-3">
                         <div class="d-flex align-items-center">
-    
+                            <a href="{{ route('admin.details', ['user', Auth::user()->id ]) }}">
                             @if (Auth::user()[config('satadmin.imgProfil')])
                                 <img src="{{ Storage::disk('public')->url('images/' . Auth::user()[config('satadmin.imgProfil')]) }}" class="rounded-circle" height="45" width="45">
                             @else
                                 <img src="{{ asset('storage/images/satadmin/unknown.png') }}" class="rounded-circle" height="45" width="45"> 
                             @endif
-                            
-                            <div>
-                                <p class="p-0 px-2 m-0 ml-2">
+                             
+                                <span class="p-0 px-2 m-0 ml-2 nameAuth">
                                     {{ Auth::user()->name }}
-                                </p>
-                            </div>
+                                </span>
+                               
+                            </a>
                         </div>
                         <a href="{{ route('logout') }}" style="font-size: 1rem;"><i class="fas fa-sign-out-alt fa-lg"></i></a>
                     </div>

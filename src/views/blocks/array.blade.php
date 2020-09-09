@@ -5,7 +5,7 @@
   </h3>
   
   
-  <table class="table table-bordered table-sm">
+  <table class="table table-bordered table-sm shadow-sm">
           
     @if ($fields != null)
    
@@ -22,12 +22,12 @@
         @for ($i = 0; $i < count($fields[0]['id']); $i++)
         <tr>
             @foreach ($fields as $Field)  
-                <td>{{ $Field['value'][$i] }}</td>
+                <td class="fieldValueSata">{{ $Field['value'][$i] }}</td>
             @endforeach
             <td class="gestionWith">
-                <a class="btn btn-secondary text-light" href="{{ route('admin.details', [$slug, $fields[0]['id'][$i]]) }}"><i class="fas fa-info-circle"></i></a> 
-                <a class="btn btn-secondary text-light" href="{{ route('admin.update', [$slug, $fields[0]['id'][$i]]) }}"><i class="far fa-edit"></i></a>
-                <button type="button" class="btn btn-secondary text-light" data-toggle="modal" data-target=".modalDelete{{ $fields[0]['id'][$i] }}" ><i class="far fa-trash-alt"></i></button>
+                <a class="btn btn-outline-secondary" href="{{ route('admin.details', [$slug, $fields[0]['id'][$i]]) }}"><i class="fas fa-info-circle"></i></a> 
+                <a class="btn btn-outline-secondary" href="{{ route('admin.update', [$slug, $fields[0]['id'][$i]]) }}"><i class="far fa-edit"></i></a>
+                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target=".modalDelete{{ $fields[0]['id'][$i] }}" ><i class="far fa-trash-alt"></i></button>
             </td>
         </tr>
   
