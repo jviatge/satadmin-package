@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
+use Jviatge\Satadmin\console\NpmPackage;
 
 class testCommand extends Command
 {
@@ -17,32 +18,10 @@ class testCommand extends Command
 
     public function handle()
     {
-        // $old = 7.0.2;
-        // $version = explode('.', app()->version())[0];
-        // $this->info($version);
-        // Artisan::call('ui bootstrap');
-        $this->info(base_path());
-
-        // $name = $this->ask('Name');
-
-        // $email = $this->ask('Email');
-
-        // $password = $this->secret('Password');
-
-        // $hash = Hash::make($password);
-
-        // $myModel =  \App\User::class;
-        // $myModel::create([
-        //     'name' => $name,
-        //     'email' => $email,
-        //     'password' => $hash
-        // ]);
-
         
-        // app_path()
-        // base_path()
-
-        // $this->info('Finish !');
+        exec('npm install');
+        exec('npm install sass');
+        exec('npm run dev');
 
     }
 }

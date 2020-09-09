@@ -5,6 +5,7 @@ namespace Jviatge\Satadmin\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use Jviatge\Satadmin\console\NpmPackage;
 
 class installCommand extends Command
 {
@@ -17,6 +18,7 @@ class installCommand extends Command
     {
         $this->info('Install Satadmin ==(°^°)');
 
+        unlink(base_path('webpack.mix.js'));
         Artisan::call('vendor:publish', ['--provider' => 'Jviatge\Satadmin\SatadminServiceProvider']);
         $this->info(Artisan::output());
         
@@ -25,6 +27,15 @@ class installCommand extends Command
 
         Artisan::call('ui bootstrap');
         $this->info(Artisan::output());
+
+        $this->info('npm install');
+        exec('npm install');
+
+        $this->info('npm install sass');
+        exec('npm install sass');
+
+        $this->info('npm run dev');
+        exec('npm run dev');
 
         Artisan::call('storage:link');
         $this->info(Artisan::output());

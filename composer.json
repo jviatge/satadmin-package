@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "laravel/ui":   "^2.3",
+        "laravel/ui":   "^3.0@dev",
         "bizley/quill": "^3.1"
     },
     "autoload": {
@@ -25,10 +25,5 @@
                 "Jviatge\\Satadmin\\SatadminServiceProvider"
             ]
         }
-    },
-    "scripts": {
-        "post-package-install": [
-            "composer require laravel/ui"
-        ]
     }
 }
