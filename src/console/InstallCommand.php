@@ -38,9 +38,6 @@ class installCommand extends Command
         $this->info('npm install sass');
         exec('npm install sass');
 
-        $this->info('npm run dev');
-        exec('npm run dev');
-        
         Artisan::call('config:clear');
         $this->info(Artisan::output());
        
@@ -52,6 +49,9 @@ class installCommand extends Command
        
         Artisan::call('route:clear');
         $this->info(Artisan::output());
+
+        $this->info('npm run dev');
+        exec('npm run dev');
        
         Artisan::call('migrate');
         $this->info(Artisan::output());
