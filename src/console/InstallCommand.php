@@ -17,16 +17,17 @@ class installCommand extends Command
     public function handle()
     {
         $this->info('Install Satadmin ==(°^°)');
-
         unlink(base_path('webpack.mix.js'));
+
         Artisan::call('vendor:publish', ['--provider' => 'Jviatge\Satadmin\SatadminServiceProvider']);
         $this->info(Artisan::output());
         
         Storage::disk('public')->makeDirectory('files/images');
         $this->info('Public files Directorie are created !');
 
-        Artisan::call('ui bootstrap');
-        $this->info(Artisan::output());
+        exec('php artisan ui bootstrap');
+        // Artisan::call('ui bootstrap');
+        // $this->info(Artisan::output());
 
         Artisan::call('storage:link');
         $this->info(Artisan::output());
