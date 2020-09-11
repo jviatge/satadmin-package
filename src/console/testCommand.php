@@ -19,9 +19,7 @@ class testCommand extends Command
     public function handle()
     {
         
-        exec('npm install');
-        exec('npm install sass');
-        exec('npm run dev');
+        $this->info('test');
 
     }
 }

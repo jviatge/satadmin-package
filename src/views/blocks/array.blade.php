@@ -1,14 +1,17 @@
 <div class="p-2">
 
-  <h3 class="pt-3 pb-2">
-    {{ $name ?? 'Unknow' }}
-  </h3>
-  
-  
+    <div class="d-flex justify-content-between align-items-center">
+        <h3 class="pt-3 pb-2">
+          {{ $name ?? 'Unknow' }}
+        </h3>       
+        <div>
+            <a type="button" class="btn btn-success ml-3" href="{{ route('admin.new', [$slug]) }}"><i class="fas fa-plus"></i> New</a> 
+        </div>
+    </div>
+
   <table class="table table-bordered table-sm shadow-sm">
-          
-    @if ($fields != null)
-   
+
+    @if ($fields[0]['value'] != null)
     
     <thead>
         <tr>

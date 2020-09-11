@@ -48,7 +48,7 @@ class admin extends Controller
         $option = (array) json_decode($tabJson,true);
 
         // CREATE VIEW
-        $fields = $this->createFields($option, $model, $myClass);
+        $fields = $this->createField($option, $model, $myClass);
 
         return view('satadmin::support/supportPanel', [
 
@@ -74,7 +74,7 @@ class admin extends Controller
         $option = (array) json_decode($tabJson,true);
 
         // CREATE VIEW
-        $fields = $this->createFields($option, $myClass);
+        $fields = $this->createField($option, $myClass);
 
 
         return view('satadmin::support/supportNew', [
@@ -162,7 +162,7 @@ class admin extends Controller
         $option = (array) json_decode($tabJson,true);
 
         // CREATE VIEW        
-        $fields = $this->createFields($option, $model, $myClass);
+        $fields = $this->createField($option, $model, $myClass);
 
         return view('satadmin::support/supportDetails', [
 
@@ -217,7 +217,7 @@ class admin extends Controller
         $option = (array) json_decode($tabJson,true);
 
         // CREATE VIEW
-        $fields = $this->createFields($option, $model);
+        $fields = $this->createField($option, $model);
 
         return view('satadmin::support/supportUpdate', [
 
@@ -304,7 +304,7 @@ class admin extends Controller
     }
 
 
-    function createFields ($option, $data, ...$arr)
+    function createField ($option, $data, ...$arr)
     {
         isset($arr[0]) ? $class  =  $arr[0] : null;
 
@@ -343,7 +343,8 @@ class admin extends Controller
          
                             if($option[$i]['type'] == 'belongsto')
                             {
-                                $classSeg = explode('\\',get_class($data[0]))[1];
+                                $classSeg = explode('\\',get_class($data[0]))[2];
+
                             } else {
                                 $classSeg = null;
                             }
@@ -399,7 +400,7 @@ class admin extends Controller
 
                             if($option[$i]['type'] == 'belongsto')
                             {
-                                $classSeg = explode('\\',get_class($data[0]))[1];
+                                $classSeg = explode('\\',get_class($data[0]))[2];
                             } else {
                                 $classSeg = null;
                             }
@@ -423,7 +424,7 @@ class admin extends Controller
                                     ->only('id')
                                     ->toArray()[0]['id'];
 
-                } else {              
+                } else {            
                     ($option[$i]['type'] == 'hasmany') ? 
                         array_push($extend, $option[$i], $data)
                         : null;
@@ -445,10 +446,7 @@ class admin extends Controller
                     $myClass    =   new $myClass;
 
                     $value      =   $myClass::get()->pluck($searchable, 'id');
-                    $id         =   $data
-                                    ->map
-                                    ->only('id')
-                                    ->toArray()[0]['id'];
+                    $id         =   $data;
                     
                 } else {
 
@@ -501,7 +499,7 @@ class admin extends Controller
             }
         }
 
-        if($extend != null)
+        if(isset($extend) && $extend != null)
         {
             array_push($arrViews, $this->newTab($extend[0], $class, $id));
         }
@@ -530,12 +528,14 @@ class admin extends Controller
         $optionJson = (array) json_decode($tabJson,true);
 
         // CREATE VIEW
-        $fields = $this->createFields($optionJson, collect($model));
+        $fields = $this->createField($optionJson, collect($model));
+
+        // dd($option['arr']);
        
         return ['extend' =>  view('satadmin::blocks/array', [
 
             'name'          =>  $option['label'],
-            'slug'          =>  strtolower(explode("\\",$option['arr'])[3]),
+            'slug'          =>  strtolower(explode("\\",$option['arr'])[2]),
             'fields'        =>  $fields
         
         ])];
