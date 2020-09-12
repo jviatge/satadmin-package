@@ -57,6 +57,40 @@
             </div>
         </div>
 
+        <script>
+            let editor          = document.getElementsByClassName('editor');
+            let inputFieldEdit  = document.getElementsByClassName('inputFieldEdit');
+            let toolbarOptions  = [
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                ['bold', 'italic', 'underline', 'strike', 'link'],   
+                [{ 'color': [] }, { 'background': [] }],  
+                [{ 'align': [] }],   
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          
+            ];
+    
+            for (let i = 0; i < inputFieldEdit.length; i++) {
+
+                let quill = new Quill(editor[i], {
+                modules: {
+                    toolbar: toolbarOptions
+                },
+                    theme: 'snow'
+                });
+
+
+                function WYSIWYG()
+                {
+                    for (let i = 0; i < inputFieldEdit.length; i++) {
+                        let data = editor[i].childNodes[0].innerHTML
+                        if(data != '<p><br></p>'){
+                            inputFieldEdit[i].value = data
+                        }
+                    }
+                }              
+            }
+        </script>
+
     </form>
 </div>    
 

@@ -334,9 +334,10 @@ class admin extends Controller
                     foreach($arrValues as $arrValue)
                     {
                         // FIELD VIEW
-                        if( $option[$i]['type'] == 'image' || 
-                            $option[$i]['type'] == 'email' ||
-                            $option[$i]['type'] == 'belongsto'){
+                        if( $option[$i]['type'] == 'image'      || 
+                            $option[$i]['type'] == 'email'      ||
+                            $option[$i]['type'] == 'belongsto'  ||
+                            $option[$i]['type'] == 'textedit'){
                             
                             // BLOCAGE 
                             ($option[$i]['section'] == 'details') ?  $show = false : null;
@@ -394,9 +395,10 @@ class admin extends Controller
                     {
     
                         // FIELD VIEW
-                        if( $option[$i]['type'] == 'image' || 
-                            $option[$i]['type'] == 'email' ||
-                            $option[$i]['type'] == 'belongsto'){   
+                        if( $option[$i]['type'] == 'image'      || 
+                            $option[$i]['type'] == 'email'      ||
+                            $option[$i]['type'] == 'belongsto'  ||
+                            $option[$i]['type'] == 'textedit'){   
 
                             if($option[$i]['type'] == 'belongsto')
                             {

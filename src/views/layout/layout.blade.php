@@ -8,22 +8,26 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-         <!-- Scripts -->
+        
+        {{-- APP BASE --}}
         <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="{{ asset('js/fontawesome/all.js') }}" defer></script>
-   
-        <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/satadmin.css') }}" rel="stylesheet">
-        {{-- <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet"> --}}
 
+        {{-- FA --}}
+        <script src="{{ asset('satadmin/fontawesome/all.js') }}" defer></script>
 
-        <!-- Include Quill stylesheet -->
-        <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
-        <!-- Include the Quill library -->
-        <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
-   
+        {{-- BASE SATADMIN --}}
+        <script src="{{ asset('satadmin/app.js') }}" defer></script>
+        <link href="{{ asset('satadmin/satadmin.css') }}" rel="stylesheet">
+        
+        {{-- QUILL --}}
+        <script src="{{ asset('satadmin/quill/quill.js') }}"></script>
+        <link href="{{ asset('satadmin/quill/quill.snow.css') }}" rel="stylesheet">
+        
+        {{-- BOOTSTRAP --}}
+        <link href="{{ asset('satadmin/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+        {{-- <script src="{{ asset('satadmin/bootstrap/bootstrap.min.js') }}"></script> --}}
+    
         
     </head>
     <body id="satadmin-app-backofice">

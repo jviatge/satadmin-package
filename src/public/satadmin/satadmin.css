@@ -391,9 +391,9 @@
     font-size: 15px !important;
 }
 #satadmin-app-backofice .sectionQuill{
-    margin-bottom: 60px;
+    margin-bottom: 85px;
 }
-#satadmin-app-backofice #editor{
+#satadmin-app-backofice .editor{
     color: black !important;
     background-color: white;
 

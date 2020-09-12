@@ -11,8 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "laravel/ui":   "2.3",
-        "bizley/quill": "^3.1"
+        "laravel/ui":   "2.3"
     },
     "autoload": {
         "psr-4": {

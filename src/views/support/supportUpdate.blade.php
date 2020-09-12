@@ -37,7 +37,7 @@
 @section('content')
  
 <div class="card-body">
-    <form enctype="multipart/form-data" action="{{ route('admin.send.update',[$slug, $id]) }}" method="POST">
+    <form enctype="multipart/form-data" action="{{ route('admin.send.update',[$slug, $id]) }}" method="POST" onsubmit="WYSIWYG()">
 
         @csrf
 
@@ -47,7 +47,6 @@
 
         @endforeach
 
-
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
@@ -55,6 +54,39 @@
                 </button>
             </div>
         </div>
+
+        <script>
+            let editor          = document.getElementsByClassName('editor');
+            let inputFieldEdit  = document.getElementsByClassName('inputFieldEdit');
+            let toolbarOptions  = [
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                ['bold', 'italic', 'underline', 'strike', 'link'],   
+                [{ 'color': [] }, { 'background': [] }],  
+                [{ 'align': [] }],   
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          
+            ];
+    
+            for (let i = 0; i < inputFieldEdit.length; i++) {
+    
+                let quill = new Quill(editor[i], {
+                modules: {
+                    toolbar: toolbarOptions
+                },
+                    theme: 'snow'
+                });
+            }
+
+            function WYSIWYG()
+            {
+                for (let i = 0; i < inputFieldEdit.length; i++) {
+                    let data = editor[i].childNodes[0].innerHTML
+                    if(data != '<p><br></p>'){
+                        inputFieldEdit[i].value = data
+                    }
+                }
+            }      
+        </script>
 
     </form>
 </div>    

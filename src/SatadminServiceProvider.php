@@ -25,11 +25,9 @@ class SatadminServiceProvider extends ServiceProvider{
         $this->mergeConfigFrom(__DIR__.'/config/satadmin.php', 'satadmin');
         $this->publishes([
             __DIR__.'/config/satadmin.php'      => config_path('satadmin.php'),
-            __DIR__.'/css/satadmin.css'         => public_path('css/satadmin.css'),
-            __DIR__.'/js/fontawesome/all.js'    => public_path('js/fontawesome/all.js'),
+            __DIR__.'/public'                   => public_path('/'),
             __DIR__. $userURL                   => app_path('Satadmin/User.php'),
             __DIR__.'/tools/unknown.png'        => public_path('storage/images/satadmin/unknown.png'),
-            __DIR__.'/tools/webpack.mix.js'     => base_path('webpack.mix.js'),
         ]);
         
         app()->config["filesystems.disks.Satadmin"] = [

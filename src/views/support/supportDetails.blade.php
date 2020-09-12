@@ -45,12 +45,6 @@
 @endphp
 
 <table class="table">
-    {{-- <thead>
-      <tr>
-        <th scope="col">Column</th>
-        <th scope="col">Value</th>
-      </tr>
-    </thead> --}}
     <tbody>
       @foreach ($fields as $Field)  
 
