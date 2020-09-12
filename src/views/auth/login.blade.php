@@ -6,11 +6,27 @@
 
         <title>Satadmin - login</title>
 
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        
+        {{-- APP BASE --}}
         <script src="{{ asset('js/app.js') }}" defer></script>
-   
-        <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/satadmin.css') }}" rel="stylesheet">
+
+        {{-- FA --}}
+        <script src="{{ asset('satadmin/fontawesome/all.js') }}" defer></script>
+
+        {{-- BASE SATADMIN --}}
+        <script src="{{ asset('satadmin/app.js') }}" defer></script>
+        <link href="{{ asset('satadmin/satadmin.css') }}" rel="stylesheet">
+        
+        {{-- QUILL --}}
+        <script src="{{ asset('satadmin/quill/quill.js') }}"></script>
+        <link href="{{ asset('satadmin/quill/quill.snow.css') }}" rel="stylesheet">
+        
+        {{-- BOOTSTRAP --}}
+        <link href="{{ asset('satadmin/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+        {{-- <script src="{{ asset('satadmin/bootstrap/bootstrap.min.js') }}"></script> --}}
 
     </head>
    
