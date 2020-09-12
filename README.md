@@ -23,8 +23,6 @@ Config ".env"
 
 php artisan satadmin:install
 
-npm install && npm run dev
-
 ```
 
 ## USAGE ## 
@@ -45,4 +43,21 @@ php artisan satadmin:support {NAME}
 
 ```
 
+###  LIST FIELDS ### 
+
+
+```php
+
+Id
+Text
+Textarea
+TextEdit
+Password
+Select
+Image
+
+HasMany
+BeLongsTo
+
+```
 
