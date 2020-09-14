@@ -10,8 +10,8 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         
         {{-- APP BASE --}}
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        {{-- <script src="{{ asset('js/app.js') }}" defer></script>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
         {{-- FA --}}
         <script src="{{ asset('satadmin/fontawesome/all.js') }}" defer></script>

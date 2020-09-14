@@ -21,6 +21,7 @@ class SatadminServiceProvider extends ServiceProvider{
         }
 
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
         $this->loadViewsFrom(__DIR__.'/views', 'satadmin');
         $this->mergeConfigFrom(__DIR__.'/config/satadmin.php', 'satadmin');
         $this->publishes([

@@ -10,8 +10,8 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         
         {{-- APP BASE --}}
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        {{-- <script src="{{ asset('js/app.js') }}" defer></script>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
         {{-- FA --}}
         <script src="{{ asset('satadmin/fontawesome/all.js') }}" defer></script>
@@ -27,11 +27,20 @@
         {{-- BOOTSTRAP --}}
         <link href="{{ asset('satadmin/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
         {{-- <script src="{{ asset('satadmin/bootstrap/bootstrap.min.js') }}"></script> --}}
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     
         
     </head>
+    <style>
+        .frame{
+            width: 500px;
+        }
+    </style>
     <body id="satadmin-app-backofice">
-        <div class="wrapper">
+        <div class="wrapper" id="app">
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header text-center">

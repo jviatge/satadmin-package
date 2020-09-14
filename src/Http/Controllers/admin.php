@@ -340,7 +340,7 @@ class admin extends Controller
                             $option[$i]['type'] == 'textedit'){
                             
                             // BLOCAGE 
-                            ($option[$i]['section'] == 'details') ?  $show = false : null;
+                            // ($option[$i]['section'] == 'details') ?  $show = false : null;
          
                             if($option[$i]['type'] == 'belongsto')
                             {
