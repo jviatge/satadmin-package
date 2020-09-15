@@ -2,6 +2,9 @@
 
 namespace Jviatge\Satadmin\fields;
 
+use Jviatge\Satadmin\fields\options\CheckSegment;
+use Jviatge\Satadmin\fields\options\Option;
+
 abstract class Select extends CheckSegment{
 
     static function create(...$arguments)

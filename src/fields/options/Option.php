@@ -1,13 +1,12 @@
 <?php 
 
-namespace Jviatge\Satadmin\fields;
+namespace Jviatge\Satadmin\fields\options;
 use JsonSerializable;
 
 class Option implements JsonSerializable {
 
     public function __construct($arguments, $type, $section)
     {
-        // dd($arguments, $type, $section);
 
         $this->arguments    =   $arguments; 
         $this->fieldName    =   $arguments[1]; 

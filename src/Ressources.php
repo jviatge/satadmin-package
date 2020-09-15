@@ -2,7 +2,6 @@
 
 namespace Jviatge\Satadmin;
 
-// use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 

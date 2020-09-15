@@ -1,8 +1,6 @@
 <?php
 
-namespace Jviatge\Satadmin\fields;
-
-// use jviatge\Satadmin\fields\Option;
+namespace Jviatge\Satadmin\fields\options;
 
 class CheckSegment {
 

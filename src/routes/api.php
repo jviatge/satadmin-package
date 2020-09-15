@@ -24,11 +24,12 @@ Route::group(['namespace' => 'Jviatge\Satadmin\Http\Controllers'], function () {
         Route::group(['middleware' => 'auth'], function () {
     
             Route::get('/api/test', function(){
-                $get = [
-                    ['name' => 'Progression', 'col' => ['josex','satannas','Pantoufle','josex','satannas','Pantoufle'], 'value' => [3,10,8,3,10,8]],
-                    ['name' => 'Game', 'col' => ['Overwatch','League of legends','Rocket league'], 'value' => [10,11,9]],
-                    ['name' => 'Game', 'col' => ['dgljd','xcvvxv'], 'value' => [10,9]],
-                ];
+                // $get = [
+                //     ['name' => 'Progression', 'col' => ['josex','satannas','Pantoufle','josex','satannas','Pantoufle'], 'value' => [3,10,8,3,10,8]],
+                //     ['name' => 'Game', 'col' => ['Overwatch','League of legends','Rocket league'], 'value' => [10,11,9]],
+                //     ['name' => 'Game', 'col' => ['dgljd','xcvvxv'], 'value' => [10,9]],
+                // ];
+                $get = [];
         
                 return json_encode($get);
             });

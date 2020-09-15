@@ -24,9 +24,12 @@
         <script src="{{ asset('satadmin/quill/quill.js') }}"></script>
         <link href="{{ asset('satadmin/quill/quill.snow.css') }}" rel="stylesheet">
         
+        {{-- JQUERY --}}
+        <script src="{{ asset('satadmin/jquery/jquery.js') }}"></script>
+
         {{-- BOOTSTRAP --}}
         <link href="{{ asset('satadmin/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-        {{-- <script src="{{ asset('satadmin/bootstrap/bootstrap.min.js') }}"></script> --}}
+        <script src="{{ asset('satadmin/bootstrap/bootstrap.min.js') }}"></script>
 
     </head>
    

@@ -24,9 +24,12 @@
         <script src="{{ asset('satadmin/quill/quill.js') }}"></script>
         <link href="{{ asset('satadmin/quill/quill.snow.css') }}" rel="stylesheet">
         
+        {{-- JQUERY --}}
+        <script src="{{ asset('satadmin/jquery/jquery.js') }}"></script>
+
         {{-- BOOTSTRAP --}}
         <link href="{{ asset('satadmin/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-        {{-- <script src="{{ asset('satadmin/bootstrap/bootstrap.min.js') }}"></script> --}}
+        <script src="{{ asset('satadmin/bootstrap/bootstrap.min.js') }}"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -130,8 +133,6 @@
             </div>
         </div>  
 
-    
-        <script src="{{ asset('js/app.js') }}"></script>
         <script type="text/javascript">
 
         $(document).ready(function () {
