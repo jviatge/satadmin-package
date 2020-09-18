@@ -21,7 +21,7 @@ Route::group(['namespace' => 'Jviatge\Satadmin\Http\Controllers'], function () {
             Route::get('/' . $slug .'/{support}/details/{id}', 'admin@supportDetails')->name('admin.details');
             Route::get('/' . $slug .'/{support}/update/{id}', 'admin@supportUpdate')->name('admin.update');
             Route::post('/' . $slug .'/{support}/send/update/{id}', 'admin@supportSendUpdate')->name('admin.send.update');
-
+            Route::post('/' . $slug .'/{support}/delete/multi', 'admin@supportMultiDelete')->name('admin.delete.multi');  
         });
     });
 });

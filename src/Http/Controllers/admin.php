@@ -69,8 +69,7 @@ class admin extends Controller
         // BASE CLASS
         $checkedClass   =   Layout::Support($support);
         $myClass        =   new $checkedClass;
-      
-      
+          
         // OPTION
         $tabJson = json_encode($myClass->fields());
         $option = (array) json_decode($tabJson,true);
@@ -93,9 +92,26 @@ class admin extends Controller
 
     public function supportSendNew(Request $request, $support)
     { 
-        // $this->validate($request, [
-        //     'input_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
+        // BASE CLASS
+        $checkedClass   =   Layout::Support($support);
+        $myClass        =   new $checkedClass;
+          
+        // OPTION
+        $tabJson        =   json_encode($myClass->fields());
+        $options        =   (array) json_decode($tabJson,true);
+
+        // IF validate
+        $validate = [];
+        foreach($options as $option)
+        {
+            if (is_array($option['param'])) {
+                if (isset($option['param']['validate'])) {
+                    $validate[$option['fieldName']] = $option['param']['validate'];
+                }
+            }
+        }
+        ($validate) ? $this->validate($request, $validate) : null ;
+  
 
         $checkedClass = Layout::Support($support);
         $myClass = new $checkedClass;
@@ -243,6 +259,22 @@ class admin extends Controller
     
         $table          =   DB::getSchemaBuilder()->getColumnListing($support . 's');
         $myData         =   [];
+           
+        // OPTION
+        $tabJson        =   json_encode($myClass->fields());
+        $options        =   (array) json_decode($tabJson,true);
+
+        // IF validate
+        $validate = [];
+        foreach($options as $option)
+        {
+            if (is_array($option['param'])) {
+                if (isset($option['param']['validate'])) {
+                    $validate[$option['fieldName']] = $option['param']['validate'];
+                }
+            }
+        }
+        ($validate) ? $this->validate($request, $validate) : null ;
 
         
         // HASH PASSWORD
@@ -303,6 +335,30 @@ class admin extends Controller
        
         return redirect('admin/' . $support);
 
+    }
+
+    public function supportMultiDelete(Request $request, $support)
+    { 
+        
+        $checkedClass   =   Layout::Support($support);
+        $myClass        =   new $checkedClass;
+        $model          =   $myClass->table()::whereIn('id', $request['check']);
+       
+        $checkfile = $model->get()->map->toArray();
+        $where = ['images/','other/'];
+        foreach($checkfile[0] as $key => $value)
+        {
+            foreach($where as $path)
+            {
+                if(Storage::disk('public')->exists($path. $value))
+                {
+                    Storage::disk('public')->delete($path. $value);
+                } 
+            }
+        }
+
+        $model->delete();
+        return back();
     }
 
 }

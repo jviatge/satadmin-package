@@ -1,7 +1,7 @@
 @if ($section == 'new')
 
     <div class="form-group row">
-        <label class="col-md-4 col-form-label text-md-right">{{ $label }}</label>
+        <label class="col-md-4 col-form-label text-md-right">{{ $label }} {{ ($required) ? '*' : null }}</label>
         <div class="col-md-6">
             <div class="custom-file mb-2">
 
@@ -10,6 +10,17 @@
                 <input type="file" class="p-0 input-file imgInp" id="{{ $fieldName }}" name="{{ $fieldName }}">
 
             </div>    
+            @if ($errors->any())
+                @foreach($errors->getMessages() as $key => $message)
+                    @if ($key == $fieldName)
+                        @foreach ($message as $error)
+                            <div class="alert alert-danger p-0 m-0">
+                                {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                @endforeach
+            @endif
             <div class="frame-img rounded">
 
                 <img class="rounded mx-auto d-block img-upload"/>
@@ -21,18 +32,29 @@
 @elseif ($section == 'update')
 
     <div class="form-group row">
-        <label class="col-md-4 col-form-label text-md-right">{{ $label }}</label>
+        <label class="col-md-4 col-form-label text-md-right">{{ $label }} {{ ($required) ? '*' : null }}</label>
         <div class="col-md-6">
             <div class="custom-file mb-2">
 
-                <label for="{{ $fieldName }}" class="label-file btn"><i class="fas fa-upload"></i> Upload image</label><span class="ml-2 nameImgUpload">{{ $value }}</span>
+                <label for="{{ $fieldName }}" class="label-file btn"><i class="fas fa-upload"></i> Upload image</label><span class="ml-2 nameImgUpload">{{ (request()->input($fieldName, old($fieldName))) ? request()->input($fieldName, old($fieldName)) : $value }}</span>
 
                 <input type="file" class="p-0 input-file imgInp" id="{{ $fieldName }}" name="{{ $fieldName }}">
 
-            </div>    
+            </div>  
+            @if ($errors->any())
+                @foreach($errors->getMessages() as $key => $message)
+                    @if ($key == $fieldName)
+                        @foreach ($message as $error)
+                            <div class="alert alert-danger p-0 m-0">
+                                {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                @endforeach
+            @endif  
             <div class="frame-img rounded">
 
-            <img class="rounded mx-auto d-block img-upload" src="{{ Storage::disk('public')->url('images/' . $value) }}"/>
+                <img class="rounded mx-auto d-block img-upload" src="{{ Storage::disk('public')->url('images/' . $value) }}"/>
 
             </div>
         </div>

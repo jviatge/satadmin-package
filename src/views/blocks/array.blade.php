@@ -4,19 +4,24 @@
         <h3 class="pt-3 pb-2">
           {{ $name ?? 'Unknow' }}
         </h3>       
-        <div>
+        
+        <div class="d-flex justify-content-center">
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2 formSearchTable" type="search" placeholder="Search" aria-label="Search">
+                {{-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
+            </form>
             <a type="button" class="btn btn-success ml-3" href="{{ route('admin.new', [$slug]) }}"><i class="fas fa-plus"></i> New</a> 
         </div>
     </div>
 
-  <table class="table table-bordered table-sm shadow-sm">
+  <table class="table table-bordered table-sm shadow-sm tableDataTable" cellspacing="0" width="100%">
 
     @if ($fields[0]['value'] != null)
     
     <thead>
         <tr>
             @foreach ($fields as $Field)  
-            <th scope="col" class="thPadding">{{ $Field['label'] }}</th>
+            <th scope="col" class="thPadding nameFields">{{ $Field['label'] }}</th>
             @endforeach
             <th scope="col" class="thPadding">Gestion</th>
         </tr>
@@ -61,6 +66,7 @@
     </tbody>
     @endif
   </table>
+
 </div>
 
 

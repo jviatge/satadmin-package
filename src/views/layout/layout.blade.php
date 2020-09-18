@@ -27,6 +27,9 @@
         {{-- JQUERY --}}
         <script src="{{ asset('satadmin/jquery/jquery.js') }}"></script>
 
+        {{-- POPPER --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+
         {{-- BOOTSTRAP --}}
         <link href="{{ asset('satadmin/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
         <script src="{{ asset('satadmin/bootstrap/bootstrap.min.js') }}"></script>
@@ -34,14 +37,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    
+
+        {{-- DATATABLE --}}
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
+
         
     </head>
-    <style>
-        .frame{
-            width: 500px;
-        }
-    </style>
     <body id="satadmin-app-backofice">
         <div class="wrapper" id="app">
             <!-- Sidebar  -->
@@ -122,6 +124,7 @@
                     </li>
                 </ul> --}}
             </nav>
+
     
             <!-- Page Content  -->
             <div id="content">
@@ -131,23 +134,80 @@
                 @yield('content')
 
             </div>
-        </div>  
+        </div>   
+
+       
+
+        <script>    
+        window.addEventListener('load', function () {     
+            // SELECT AND BTN REMOVE
+            let masterCheck     =   document.getElementsByClassName('masterCheck')
+            let slaveCheck      =   document.getElementsByClassName('slaveCheck')
+            let tablePanel      =   document.getElementById('tablePanel')
+            let tr              =   document.getElementsByTagName('tr')
+            let btnRemoveMulti  =   document.getElementById('btnRemoveMulti')
+
+            for (let e = 0; e < masterCheck.length; e++) 
+            {    
+                masterCheck[e].addEventListener('click', function(){
+                    if(masterCheck[e].checked && slaveCheck.length > 0){
+                        btnRemoveMulti.removeAttribute('disabled')
+
+                        for (let i = 0; i < slaveCheck.length; i++) 
+                        {
+                            for (let i = 0; i < slaveCheck.length; i++) {
+                                tr[i + 1].style.backgroundColor = 'inherit';
+                            }
+                            slaveCheck[i].checked = true;
+                            tablePanel.style.backgroundColor = 'rgba(0, 110, 255, 0.100)';
+                        }   
+                    } else {
+                        btnRemoveMulti.setAttribute("disabled", "")
+                        for (let i = 0; i < slaveCheck.length; i++) 
+                        {
+                            slaveCheck[i].checked = false;
+                            tablePanel.style.backgroundColor = 'inherit';
+                        }  
+                    }
+                })
+                for (let i = 0; i < slaveCheck.length; i++) {
+                    slaveCheck[i].addEventListener('click', function(){
+                        if(slaveCheck[i].checked){
+                            tr[i + 1].style.backgroundColor = 'rgba(0, 110, 255, 0.100)';
+                        } else {
+                            if(masterCheck[e].checked){
+                                masterCheck[e].checked = false
+                                tablePanel.style.backgroundColor = 'inherit';
+                                tr[i + 1].style.backgroundColor = 'inherit';
+                                for (let y = 0; y < slaveCheck.length; y++) {
+                                    if(slaveCheck[y].checked){
+                                        tr[y + 1].style.backgroundColor = 'rgba(0, 110, 255, 0.100)';
+                                    }
+                                }
+                            } else {
+                                tr[i + 1].style.backgroundColor = 'inherit';
+                            }
+                        }
+                        for (let y = 0; y < slaveCheck.length; y++) {
+                            if(slaveCheck[y].checked){
+                                btnRemoveMulti.removeAttribute('disabled')
+                                y = slaveCheck.length
+                            } else {
+                                btnRemoveMulti.setAttribute("disabled", "")
+                            }
+                        }
+                    })    
+                }
+
+
+            }
+        })
+        </script>
 
         <script type="text/javascript">
 
-        $(document).ready(function () {
-
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-            
-        });
-
-
         // IMAGE PREVIEW
-        let imgInp = document.getElementsByClassName("imgInp");
+        let imgInp     =    document.getElementsByClassName("imgInp");
 
         for (let i = 0; i < imgInp.length; i++) {
             imgInp[i].addEventListener("change", function(){
@@ -173,7 +233,6 @@
 		    }
 		}
        	
-
         </script>
     </body>
 </html>

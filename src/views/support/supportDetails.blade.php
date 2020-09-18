@@ -62,6 +62,64 @@
     {{ $extend }}
   @endif
   
+  <script type="text/javascript">
+        
+    let tableDataTable = document.getElementsByClassName('tableDataTable')
+    let event = new Event('input');
+    // DATATABLE        
+    $(document).ready(function () {  
+
+        
+
+        for (let i = 0; i < tableDataTable.length; i++) {
+            
+            let colunmGestion = tableDataTable[i].children[0].children[0].children.length - 1;
+
+            $(tableDataTable[i]).DataTable({
+                "info": false,
+                "lengthChange": false,
+                "columnDefs": [
+                    { "orderable": false, "targets": [colunmGestion] }
+                ]
+            });
+            $('.dataTables_length').addClass('bs-select');
+        }
+        
+    });
+
+    window.addEventListener('load', function () {
+        
+        for (let e = 0; e < tableDataTable.length; e++) {
+
+            let checkWith               =   document.getElementsByClassName('checkWith')
+            let gestionWith             =   document.getElementsByClassName('gestionWith')
+
+            let tablePanel_filter       =   document.getElementsByClassName('dataTables_filter')[e]
+            tablePanel_filter.style.display = "none";
+            
+            tableDataTable[e].classList.remove("dataTable");
+            
+            for (let i = 0; i < checkWith.length; i++) {
+                checkWith[i].classList.remove("sorting_asc");
+                gestionWith[i].classList.remove("sorting");
+            }
+
+            let formSearchTable     =   document.getElementsByClassName('formSearchTable')[e]
+           
+
+            formSearchTable.addEventListener('input', function (evt) {
+            
+                tablePanel_filter.childNodes[0].children[0].value = this.value
+                tablePanel_filter.childNodes[0].children[0].dispatchEvent(event);
+
+            });
+            
+        }
+
+    
+    })     
+
+</script>
 
 
 

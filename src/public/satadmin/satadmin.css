@@ -346,8 +346,20 @@
 }
 #satadmin-app-backofice .checkWith{
     background-color: #e8f1f38e;
-    /* border: none !important; */
-    width: 35px;
+    padding: .3rem !important;
+    width: 37px;
+}
+
+#satadmin-app-backofice .slaveCheck{
+    width: 100%;
+}
+#satadmin-app-backofice .masterCheck{
+    width: 100%;
+}
+
+#satadmin-app-backofice .table td, 
+#satadmin-app-backofice .table th {
+    vertical-align: baseline !important;
 }
 
 #satadmin-app-backofice table .fieldValueSata a{
@@ -391,10 +403,31 @@
     font-size: 15px !important;
 }
 #satadmin-app-backofice .sectionQuill{
-    margin-bottom: 85px;
+    margin-bottom: 69px;
 }
 #satadmin-app-backofice .editor{
     color: black !important;
     background-color: white;
 
+}
+
+#satadmin-app-backofice #tablePanel_length label {
+    background-color: #F8F9FA;
+    border: #DEE2E6 solid 1px;
+    border-radius: .25rem;
+    padding: 3% 4% 3% 4%;
+    text-align: center !important;
+    color: #494c4e;
+}
+
+#satadmin-app-backofice #tablePanel_length label select{
+    border: #DEE2E6 solid 1px;
+
+}
+
+#satadmin-app-backofice .frame{
+    width: 500px;
+}
+#satadmin-app-backofice .nameFields{
+    cursor: pointer;
 }

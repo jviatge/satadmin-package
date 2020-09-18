@@ -205,7 +205,8 @@ class Fields
                     'section'       =>  $section,
                     'option'        =>  $option[$i],
                     'id'            =>  $id,
-                    'arr'           =>  $option[$i]['arr']
+                    'arr'           =>  $option[$i]['arr'],
+                    'required'      =>  $option[$i]['param']['required']
                     
                 ]));
             }
