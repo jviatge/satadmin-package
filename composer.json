@@ -10,9 +10,6 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-        "laravel/ui":   "2.3"
-    },
     "autoload": {
         "psr-4": {
             "Jviatge\\Satadmin\\": "src/"
